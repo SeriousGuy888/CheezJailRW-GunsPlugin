@@ -47,7 +47,7 @@ public class GetGunsCommand implements TabExecutor {
 
 
     if (validItems.contains(itemName)) {
-      ItemStack item = CustomItem.valueOf(itemName).getItemStack();
+      ItemStack item = CustomItem.valueOf(itemName).item;
       item.setAmount(amount);
 
       player.getInventory().addItem(item);

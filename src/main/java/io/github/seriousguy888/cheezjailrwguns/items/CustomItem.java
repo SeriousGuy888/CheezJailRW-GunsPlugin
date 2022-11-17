@@ -4,29 +4,35 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataType;
 
 public enum CustomItem {
-  PISTOL(new CustomItemData(
+  PISTOL(
       createItemStack(
           Material.CARROT_ON_A_STICK,
           "&rPistol",
           60026001),
-      "pistol",
-      CustomItemInitializers::initGun
-  )),
-  AMMO_SMALL(new CustomItemData(
+      "pistol"
+  ),
+  AMMO_SMALL(
       createItemStack(
           Material.IRON_NUGGET,
           "&rSmall Ammo",
           60036001),
-      "ammo_small",
-      null
-  ));
+      "ammo_small"
+  );
 
-  private final CustomItemData customItem;
+  public ItemStack item;
+  public String customItemId;
 
-  CustomItem(CustomItemData customItem) {
-    this.customItem = customItem;
+  CustomItem(ItemStack item, String customItemId) {
+    this.item = item;
+    this.customItemId = customItemId;
+
+    CustomItemUtils.setProperty(item,
+        CustomItemProperty.CUSTOM_ITEM_ID,
+        PersistentDataType.STRING,
+        customItemId);
   }
 
   private static ItemStack createItemStack(Material material, String name, Integer customModelData) {
@@ -42,11 +48,19 @@ public enum CustomItem {
     return item;
   }
 
-  public ItemStack getItemStack() {
-    return customItem.item;
-  }
-
   public boolean is(ItemStack compareItem) {
-    return customItem.is(compareItem);
+    if (compareItem == null)
+      return false;
+
+    ItemMeta meta = compareItem.getItemMeta();
+    if (meta == null)
+      return false;
+
+
+    String compareCustomItemId = meta.getPersistentDataContainer()
+        .get(CustomItemUtils.customItemKey, PersistentDataType.STRING);
+    if (compareCustomItemId == null)
+      return false;
+    return compareCustomItemId.equals(customItemId);
   }
 }
