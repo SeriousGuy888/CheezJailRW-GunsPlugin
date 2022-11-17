@@ -1,15 +1,18 @@
 package io.github.seriousguy888.cheezjailrwguns.items;
 
 import org.bukkit.NamespacedKey;
+import org.bukkit.persistence.PersistentDataType;
 
 public enum CustomItemProperty {
-  CUSTOM_ITEM_ID("custom_item"),
-  GUN_AMMO("gun_ammo"),
-  GUN_MAX_AMMO("gun_max_ammo");
+  CUSTOM_ITEM_ID("custom_item", PersistentDataType.STRING),
+  GUN_AMMO("gun_ammo", PersistentDataType.INTEGER),
+  GUN_MAX_AMMO("gun_max_ammo", PersistentDataType.INTEGER);
 
   NamespacedKey namespacedKey;
+  PersistentDataType dataType;
 
-  CustomItemProperty(String propertyKey) {
+  <T, Z> CustomItemProperty(String propertyKey, PersistentDataType<T, Z> dataType) {
     this.namespacedKey = CustomItemUtils.getNamespacedKey(propertyKey);
+    this.dataType = dataType;
   }
 }

@@ -1,7 +1,7 @@
 package io.github.seriousguy888.cheezjailrwguns.events;
 
 import io.github.seriousguy888.cheezjailrwguns.CheezJailRWGuns;
-import io.github.seriousguy888.cheezjailrwguns.items.CustomItem;
+import io.github.seriousguy888.cheezjailrwguns.items.CustomItemManager;
 import io.github.seriousguy888.cheezjailrwguns.items.CustomItemUtils;
 import org.bukkit.FluidCollisionMode;
 import org.bukkit.Location;
@@ -33,7 +33,8 @@ public class GunEvents implements Listener {
     ItemStack heldItem = player.getInventory().getItemInMainHand();
 
     if (action.equals(Action.RIGHT_CLICK_AIR) || action.equals(Action.RIGHT_CLICK_BLOCK)) {
-      if (CustomItem.PISTOL.is(heldItem)) {
+      if (CustomItemManager.PISTOL.is(heldItem)) {
+
 
         player.getWorld().playSound(
             player.getLocation(),
@@ -94,8 +95,8 @@ public class GunEvents implements Listener {
         hitEntity.setLastDamageCause(new EntityDamageEvent(player, EntityDamageEvent.DamageCause.PROJECTILE, dmg));
       }
     } else if (event.getAction().equals(Action.LEFT_CLICK_AIR) || event.getAction().equals(Action.LEFT_CLICK_BLOCK)) {
-      if (CustomItem.PISTOL.is(heldItem)) {
-        if (CustomItemUtils.hasCustomItem(player.getInventory(), CustomItem.AMMO_SMALL)) {
+      if (CustomItemManager.PISTOL.is(heldItem)) {
+        if (CustomItemUtils.hasCustomItem(player.getInventory(), CustomItemManager.AMMO_SMALL)) {
           player.sendMessage("you have more ammo :D");
         } else {
           player.sendMessage("you have no more ammo D:");
