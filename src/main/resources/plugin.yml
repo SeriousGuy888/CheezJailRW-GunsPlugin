@@ -1,0 +1,11 @@
+name: CheezJailRWGuns
+version: '${project.version}'
+main: io.github.seriousguy888.cheezjailrwguns.CheezJailRWGuns
+api-version: 1.19
+prefix: CJRW-Guns
+authors: [ SeriousGuy888 ]
+description: firearms
+commands:
+  getguns:
+    description: get gun
+    permission: cjrwguns.guns.get
