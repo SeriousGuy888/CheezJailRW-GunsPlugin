@@ -9,7 +9,7 @@ public enum CustomItemProperty {
   GUN_MAX_AMMO("gun_max_ammo", PersistentDataType.INTEGER);
 
   NamespacedKey namespacedKey;
-  PersistentDataType dataType;
+  PersistentDataType<?, ?> dataType;
 
   <T, Z> CustomItemProperty(String propertyKey, PersistentDataType<T, Z> dataType) {
     this.namespacedKey = CustomItemUtils.getNamespacedKey(propertyKey);
