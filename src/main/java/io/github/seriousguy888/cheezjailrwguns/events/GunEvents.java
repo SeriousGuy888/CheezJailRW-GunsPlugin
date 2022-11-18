@@ -3,7 +3,6 @@ package io.github.seriousguy888.cheezjailrwguns.events;
 import io.github.seriousguy888.cheezjailrwguns.CheezJailRWGuns;
 import io.github.seriousguy888.cheezjailrwguns.items.CustomItemManager;
 import io.github.seriousguy888.cheezjailrwguns.items.CustomItemProperty;
-import io.github.seriousguy888.cheezjailrwguns.items.CustomItemUtils;
 import io.github.seriousguy888.cheezjailrwguns.items.PersistentDataUtil;
 import org.bukkit.*;
 import org.bukkit.entity.LivingEntity;
@@ -149,8 +148,7 @@ public class GunEvents implements Listener {
               return;
             }
 
-            ItemStack ammoStack = CustomItemUtils
-                .getCustomItemStack(player.getInventory(), CustomItemManager.AMMO_SMALL);
+            ItemStack ammoStack = CustomItemManager.PISTOL.getCorrectAmmoStack(currHeldItem, player.getInventory());
             if (ammoStack == null) {
               cancel();
               reloadingPlayers.remove(player);
@@ -160,7 +158,7 @@ public class GunEvents implements Listener {
             ammoStack.setAmount(ammoStack.getAmount() - 1);
             CustomItemManager.PISTOL.reloadGun(currHeldItem, 1);
           }
-        }.runTaskTimer(plugin, 0, 10);
+        }.runTaskTimer(plugin, 0, 5);
       }
     }
   }

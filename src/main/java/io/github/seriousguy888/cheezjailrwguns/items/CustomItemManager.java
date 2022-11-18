@@ -1,8 +1,8 @@
 package io.github.seriousguy888.cheezjailrwguns.items;
 
 import io.github.seriousguy888.cheezjailrwguns.items.items.BaseCustomItem;
-import io.github.seriousguy888.cheezjailrwguns.items.items.GenericCustomItem;
 import io.github.seriousguy888.cheezjailrwguns.items.items.Pistol;
+import io.github.seriousguy888.cheezjailrwguns.items.items.SmallAmmo;
 import org.bukkit.Material;
 
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ public class CustomItemManager {
           60026001),
       "pistol",
       12);
-  public final static BaseCustomItem AMMO_SMALL = new GenericCustomItem(
+  public final static SmallAmmo AMMO_SMALL = new SmallAmmo(
       createItemStack(
           Material.IRON_NUGGET,
           "&rSmall Ammo",
