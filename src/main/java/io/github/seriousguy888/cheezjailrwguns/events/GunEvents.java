@@ -22,8 +22,8 @@ import org.bukkit.util.Vector;
 import java.util.ArrayList;
 
 public class GunEvents implements Listener {
-  CheezJailRWGuns plugin;
   private final ArrayList<Player> reloadingPlayers;
+  CheezJailRWGuns plugin;
 
   public GunEvents() {
     plugin = CheezJailRWGuns.getPlugin();
@@ -64,10 +64,10 @@ public class GunEvents implements Listener {
 
         player.getWorld().playSound(
             player.getLocation(),
-            "entity.zombie.attack_iron_door",
+            "cheezjail.guns.pistol.fire",
             SoundCategory.PLAYERS,
             1,
-            0.5f
+            1
         );
 
         Location playerLoc = player.getEyeLocation();
@@ -124,6 +124,12 @@ public class GunEvents implements Listener {
         event.getAction().equals(Action.LEFT_CLICK_BLOCK)) {
       if (CustomItemManager.PISTOL.is(heldItem)) {
         reloadingPlayers.add(player);
+        player.getWorld().playSound(
+            player.getLocation(),
+            "cheezjail.guns.pistol.reload",
+            1,
+            1
+        );
 
         new BukkitRunnable() {
           @Override
