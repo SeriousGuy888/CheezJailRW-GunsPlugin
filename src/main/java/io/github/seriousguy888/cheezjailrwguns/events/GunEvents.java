@@ -37,6 +37,11 @@ public class GunEvents implements Listener {
     Action action = event.getAction();
     ItemStack heldItem = player.getInventory().getItemInMainHand();
 
+
+    // No shooting while reloading
+    if (reloadingPlayers.contains(player))
+      return;
+
     if (action.equals(Action.RIGHT_CLICK_AIR) || action.equals(Action.RIGHT_CLICK_BLOCK)) {
       if (CustomItemManager.PISTOL.is(heldItem)) {
         event.setCancelled(true);
@@ -117,9 +122,6 @@ public class GunEvents implements Listener {
       }
     } else if (event.getAction().equals(Action.LEFT_CLICK_AIR) ||
         event.getAction().equals(Action.LEFT_CLICK_BLOCK)) {
-      if (reloadingPlayers.contains(player))
-        return;
-
       if (CustomItemManager.PISTOL.is(heldItem)) {
         reloadingPlayers.add(player);
 
