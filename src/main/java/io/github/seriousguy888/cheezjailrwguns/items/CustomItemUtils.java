@@ -12,8 +12,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.Arrays;
 
 public class CustomItemUtils {
-  public static NamespacedKey customItemKey = getNamespacedKey("custom_item");
-
   /**
    * @param item input item
    * @return whether the input item is a custom item managed by the plugin
@@ -42,15 +40,19 @@ public class CustomItemUtils {
     return results.findFirst().orElse(null);
   }
 
-  public static boolean hasCustomItem(Inventory inventory, ItemStack itemStack) {
-    if (!isCustomItem(itemStack))
-      return false;
-    BaseCustomItem custItem = getCustomItem(itemStack);
-    return hasCustomItem(inventory, custItem);
-  }
+//  public static boolean hasCustomItem(Inventory inventory, ItemStack itemStack) {
+//    if (!isCustomItem(itemStack))
+//      return false;
+//    BaseCustomItem custItem = getCustomItem(itemStack);
+//    return hasCustomItem(inventory, custItem);
+//  }
 
   public static boolean hasCustomItem(Inventory inventory, BaseCustomItem customItem) {
     return Arrays.stream(inventory.getStorageContents()).anyMatch(customItem::is);
+  }
+
+  public static ItemStack getCustomItemStack(Inventory inventory, BaseCustomItem customItem) {
+    return Arrays.stream(inventory.getStorageContents()).filter(customItem::is).findFirst().orElse(null);
   }
 
   public static ItemStack createItemStack(Material material, String name, Integer customModelData) {
@@ -68,30 +70,5 @@ public class CustomItemUtils {
 
   public static NamespacedKey getNamespacedKey(String key) {
     return new NamespacedKey(CheezJailRWGuns.getPlugin(), key);
-  }
-
-  public static <T> void setProperty(ItemStack itemStack, CustomItemProperty property, T value) {
-    if (itemStack == null)
-      return;
-    ItemMeta meta = itemStack.getItemMeta();
-    if (meta == null)
-      return;
-
-    meta.getPersistentDataContainer()
-        .set(property.namespacedKey, property.dataType, value);
-    itemStack.setItemMeta(meta);
-  }
-
-  public static <T> T getProperty(ItemStack itemStack, CustomItemProperty property) {
-    if (itemStack == null)
-      return null;
-    ItemMeta meta = itemStack.getItemMeta();
-    if (meta == null)
-      return null;
-
-    var output = meta.getPersistentDataContainer()
-        .get(property.namespacedKey, property.dataType);
-
-    return (T) output;
   }
 }

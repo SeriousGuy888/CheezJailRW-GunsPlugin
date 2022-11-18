@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import static io.github.seriousguy888.cheezjailrwguns.items.CustomItemUtils.createItemStack;
 
 public class CustomItemManager {
-  public final static BaseCustomItem PISTOL = new Pistol(
+  public final static Pistol PISTOL = new Pistol(
       createItemStack(
           Material.CARROT_ON_A_STICK,
           "&rPistol",
