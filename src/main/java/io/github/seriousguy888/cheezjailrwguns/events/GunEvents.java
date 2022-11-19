@@ -128,6 +128,7 @@ public class GunEvents implements Listener {
       float dmg = heldGunType.getDamage();
       hitEntity.damage(dmg, player);
       hitEntity.setLastDamageCause(new EntityDamageEvent(player, EntityDamageEvent.DamageCause.PROJECTILE, dmg));
+      hitEntity.setNoDamageTicks(0);
 
     } else if (event.getAction().equals(Action.LEFT_CLICK_AIR) ||
         event.getAction().equals(Action.LEFT_CLICK_BLOCK)) {
