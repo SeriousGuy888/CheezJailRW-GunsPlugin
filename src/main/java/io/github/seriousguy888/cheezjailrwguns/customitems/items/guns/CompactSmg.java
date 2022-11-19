@@ -11,7 +11,7 @@ public class CompactSmg extends AbstractGun {
         CustomItemManager.AMMO_SMALL,
         30,
         15,
-        90L, // ~1000/11
+        80L, // ~1000/12
         60,
         5);
   }
