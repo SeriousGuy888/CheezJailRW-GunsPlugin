@@ -12,23 +12,24 @@ import org.bukkit.inventory.meta.Damageable;
 public abstract class AbstractGun extends AbstractCustomItem {
   protected final AbstractAmmo ammoType;
   protected final int maxAmmo;
+  protected final float range;
   protected final long cooldownMs;
   protected final int reloadTicks;
   protected final float damage;
-
   protected String shootSound;
   protected String reloadSound;
-
   public AbstractGun(ItemStack item,
                      String customItemId,
                      AbstractAmmo ammoType,
                      int maxAmmo,
+                     float range,
                      long cooldownMs,
                      int reloadTicks,
                      float damage) {
     super(item, customItemId);
     this.ammoType = ammoType;
     this.maxAmmo = maxAmmo;
+    this.range = range;
     this.cooldownMs = cooldownMs;
     this.reloadTicks = reloadTicks;
     this.damage = damage;
@@ -36,6 +37,10 @@ public abstract class AbstractGun extends AbstractCustomItem {
     setSounds();
 
     setAmmo(item, maxAmmo);
+  }
+
+  public float getRange() {
+    return range;
   }
 
   // Overridden by children to set their own sounds.

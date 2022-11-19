@@ -9,6 +9,7 @@ public class Pistol extends AbstractGun {
         customItemId,
         CustomItemManager.AMMO_SMALL,
         12,
+        25,
         750L,
         20,
         6);

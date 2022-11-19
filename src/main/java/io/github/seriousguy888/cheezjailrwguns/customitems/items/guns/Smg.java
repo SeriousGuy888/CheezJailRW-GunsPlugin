@@ -9,6 +9,7 @@ public class Smg extends AbstractGun {
         customItemId,
         CustomItemManager.AMMO_MEDIUM,
         30,
+        15,
         140L, // ~1000/7
         60,
         2);

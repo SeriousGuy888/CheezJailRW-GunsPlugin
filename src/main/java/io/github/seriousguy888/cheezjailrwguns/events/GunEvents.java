@@ -81,11 +81,11 @@ public class GunEvents implements Listener {
 
       Location playerLoc = player.getEyeLocation();
       Vector playerDir = playerLoc.getDirection().normalize();
-      double maxRange = 20;
+      float range = heldGunType.getRange();
       RayTraceResult result = player.getWorld().rayTrace(
           playerLoc,
           playerDir,
-          maxRange,
+          range,
           FluidCollisionMode.NEVER,
           true,
           0.2,
@@ -97,7 +97,7 @@ public class GunEvents implements Listener {
       // maximum range that it could have hit something.
       Location particleLineEnd = (
           result == null ?
-              playerDir.clone().multiply(maxRange).add(playerLoc.toVector()) :
+              playerDir.clone().multiply(range).add(playerLoc.toVector()) :
               result.getHitPosition()
       ).toLocation(player.getWorld());
 

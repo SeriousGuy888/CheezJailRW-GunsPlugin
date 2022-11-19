@@ -9,6 +9,7 @@ public class AssaultRifle extends AbstractGun {
         customItemId,
         CustomItemManager.AMMO_MEDIUM,
         30,
+        25,
         100L,
         40,
         4);
