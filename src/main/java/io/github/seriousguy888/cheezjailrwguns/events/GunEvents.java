@@ -55,12 +55,6 @@ public class GunEvents implements Listener {
           return;
         }
 
-        var dmgable = (Damageable) heldItem.getItemMeta();
-        if (dmgable != null) {
-          dmgable.setDamage(ammo);
-          heldItem.setItemMeta(dmgable);
-        }
-
         PersistentDataUtil.setInt(heldItem, CustomItemProperty.GUN_AMMO, ammo - 1);
         CustomItemManager.PISTOL.updateAmmoDisplay(heldItem);
 
