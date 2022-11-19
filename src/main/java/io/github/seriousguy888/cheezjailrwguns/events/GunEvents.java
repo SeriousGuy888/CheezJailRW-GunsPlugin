@@ -4,6 +4,8 @@ import io.github.seriousguy888.cheezjailrwguns.CheezJailRWGuns;
 import io.github.seriousguy888.cheezjailrwguns.items.CustomItemManager;
 import io.github.seriousguy888.cheezjailrwguns.items.CustomItemProperty;
 import io.github.seriousguy888.cheezjailrwguns.items.PersistentDataUtil;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.*;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -48,6 +50,8 @@ public class GunEvents implements Listener {
         int ammo = PersistentDataUtil.getInt(heldItem, CustomItemProperty.GUN_AMMO);
         if (ammo <= 0) {
           player.getWorld().playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_HAT, 0.5f, 1);
+          player.spigot().sendMessage(ChatMessageType.ACTION_BAR,
+              TextComponent.fromLegacyText(ChatColor.RED + "Weapon has no ammo!"));
           return;
         }
 
@@ -152,11 +156,12 @@ public class GunEvents implements Listener {
             if (ammoStack == null) {
               cancel();
               reloadingPlayers.remove(player);
-              return;
+            } else {
+              ammoStack.setAmount(ammoStack.getAmount() - 1);
+              CustomItemManager.PISTOL.reloadGun(currHeldItem, 1);
+
             }
 
-            ammoStack.setAmount(ammoStack.getAmount() - 1);
-            CustomItemManager.PISTOL.reloadGun(currHeldItem, 1);
           }
         }.runTaskTimer(plugin, 0, 5);
       }
