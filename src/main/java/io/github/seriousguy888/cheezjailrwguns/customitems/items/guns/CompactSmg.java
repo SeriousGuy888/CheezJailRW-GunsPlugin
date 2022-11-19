@@ -8,7 +8,7 @@ import static io.github.seriousguy888.cheezjailrwguns.customitems.CustomItemUtil
 public class CompactSmg extends AbstractGun {
   public CompactSmg(String customItemId) {
     super(customItemId,
-        CustomItemManager.AMMO_MEDIUM,
+        CustomItemManager.AMMO_SMALL,
         30,
         15,
         90L, // ~1000/11
