@@ -46,6 +46,7 @@ public class GunEvents implements Listener {
       return;
 
     if (action.equals(Action.RIGHT_CLICK_AIR) || action.equals(Action.RIGHT_CLICK_BLOCK)) {
+      
       if (CustomItemManager.PISTOL.is(heldItem)) {
         event.setCancelled(true);
 

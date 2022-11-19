@@ -1,7 +1,7 @@
 package io.github.seriousguy888.cheezjailrwguns.items;
 
 import io.github.seriousguy888.cheezjailrwguns.CheezJailRWGuns;
-import io.github.seriousguy888.cheezjailrwguns.items.items.BaseCustomItem;
+import io.github.seriousguy888.cheezjailrwguns.items.items.AbstractCustomItem;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -19,23 +19,23 @@ public class CustomItemUtils {
   public static boolean isCustomItem(ItemStack item) {
     return Arrays
         .stream(CustomItemManager.items.toArray())
-        .anyMatch(customItem -> ((BaseCustomItem) customItem).is(item));
+        .anyMatch(customItem -> ((AbstractCustomItem) customItem).is(item));
   }
 
   /**
    * @param item input item
    * @return the custom item that this item is.
    */
-  public static BaseCustomItem getCustomItem(ItemStack item) {
+  public static AbstractCustomItem getCustomItem(ItemStack item) {
     var matches = Arrays
         .stream(CustomItemManager.items.toArray())
-        .filter(customItem -> ((BaseCustomItem) customItem).is(item));
+        .filter(customItem -> ((AbstractCustomItem) customItem).is(item));
     var match = matches.findFirst();
 
-    return (BaseCustomItem) match.orElse(null);
+    return (AbstractCustomItem) match.orElse(null);
   }
 
-  public static BaseCustomItem getCustomItem(String itemId) {
+  public static AbstractCustomItem getCustomItem(String itemId) {
     var results = CustomItemManager.items.stream().filter(e -> e.customItemId.equals(itemId));
     return results.findFirst().orElse(null);
   }
@@ -47,11 +47,11 @@ public class CustomItemUtils {
 //    return hasCustomItem(inventory, custItem);
 //  }
 
-  public static boolean hasCustomItem(Inventory inventory, BaseCustomItem customItem) {
+  public static boolean hasCustomItem(Inventory inventory, AbstractCustomItem customItem) {
     return Arrays.stream(inventory.getStorageContents()).anyMatch(customItem::is);
   }
 
-  public static ItemStack getCustomItemStack(Inventory inventory, BaseCustomItem customItem) {
+  public static ItemStack getCustomItemStack(Inventory inventory, AbstractCustomItem customItem) {
     return Arrays.stream(inventory.getStorageContents()).filter(customItem::is).findFirst().orElse(null);
   }
 

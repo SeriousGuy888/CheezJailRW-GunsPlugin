@@ -7,7 +7,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 
-public abstract class AbstractGun extends BaseCustomItem {
+public abstract class AbstractGun extends AbstractCustomItem {
   protected final AbstractAmmo ammoType;
   protected final long cooldownMs;
 

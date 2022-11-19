@@ -4,11 +4,11 @@ import io.github.seriousguy888.cheezjailrwguns.items.CustomItemProperty;
 import io.github.seriousguy888.cheezjailrwguns.items.PersistentDataUtil;
 import org.bukkit.inventory.ItemStack;
 
-public abstract class BaseCustomItem {
+public abstract class AbstractCustomItem {
   public ItemStack item;
   public String customItemId;
 
-  public BaseCustomItem(ItemStack item, String customItemId) {
+  public AbstractCustomItem(ItemStack item, String customItemId) {
     this.item = item;
     this.customItemId = customItemId;
 

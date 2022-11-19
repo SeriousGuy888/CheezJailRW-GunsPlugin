@@ -1,6 +1,6 @@
 package io.github.seriousguy888.cheezjailrwguns.items;
 
-import io.github.seriousguy888.cheezjailrwguns.items.items.BaseCustomItem;
+import io.github.seriousguy888.cheezjailrwguns.items.items.AbstractCustomItem;
 import io.github.seriousguy888.cheezjailrwguns.items.items.Pistol;
 import io.github.seriousguy888.cheezjailrwguns.items.items.SmallAmmo;
 import org.bukkit.Material;
@@ -26,7 +26,7 @@ public class CustomItemManager {
       12);
 
 
-  public final static ArrayList<BaseCustomItem> items = new ArrayList<>() {{
+  public final static ArrayList<AbstractCustomItem> items = new ArrayList<>() {{
     add(PISTOL);
     add(AMMO_SMALL);
   }};
