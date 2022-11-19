@@ -1,9 +1,6 @@
 package io.github.seriousguy888.cheezjailrwguns.items;
 
-import io.github.seriousguy888.cheezjailrwguns.items.items.AbstractCustomItem;
-import io.github.seriousguy888.cheezjailrwguns.items.items.AssaultRifle;
-import io.github.seriousguy888.cheezjailrwguns.items.items.Pistol;
-import io.github.seriousguy888.cheezjailrwguns.items.items.SmallAmmo;
+import io.github.seriousguy888.cheezjailrwguns.items.items.*;
 import org.bukkit.Material;
 
 import java.util.ArrayList;
@@ -16,24 +13,31 @@ public class CustomItemManager {
       createItemStack(
           Material.IRON_NUGGET,
           "&rSmall Ammo",
-          60036001),
+          6600301),
       "ammo_small");
+  public final static MediumAmmo AMMO_MEDIUM = new MediumAmmo(
+      createItemStack(
+          Material.IRON_NUGGET,
+          "&rMedium Ammo",
+          6600302),
+      "ammo_medium");
   public final static Pistol PISTOL = new Pistol(
       createItemStack(
           Material.CARROT_ON_A_STICK,
           "&rPistol",
-          60026001),
+          6600201),
       "pistol");
   public final static AssaultRifle ASSAULT_RIFLE = new AssaultRifle(
       createItemStack(
           Material.IRON_HOE,
           "&rAssault Rifle",
-          60046001),
+          6600401),
       "assault_rifle");
 
 
   public final static ArrayList<AbstractCustomItem> items = new ArrayList<>() {{
     add(AMMO_SMALL);
+    add(AMMO_MEDIUM);
     add(PISTOL);
     add(ASSAULT_RIFLE);
   }};

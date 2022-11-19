@@ -7,7 +7,7 @@ public class AssaultRifle extends AbstractGun {
   public AssaultRifle(ItemStack item, String customItemId) {
     super(item,
         customItemId,
-        CustomItemManager.AMMO_SMALL,
+        CustomItemManager.AMMO_MEDIUM,
         30,
         100L,
         40,
