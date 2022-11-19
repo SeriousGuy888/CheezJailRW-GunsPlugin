@@ -1,18 +1,27 @@
 package io.github.seriousguy888.cheezjailrwguns.customitems.items.guns;
 
 import io.github.seriousguy888.cheezjailrwguns.customitems.CustomItemManager;
-import org.bukkit.inventory.ItemStack;
+import org.bukkit.Material;
+
+import static io.github.seriousguy888.cheezjailrwguns.customitems.CustomItemUtils.createItemStack;
 
 public class AssaultRifle extends AbstractGun {
-  public AssaultRifle(ItemStack item, String customItemId) {
-    super(item,
-        customItemId,
+  public AssaultRifle(String customItemId) {
+    super(customItemId,
         CustomItemManager.AMMO_MEDIUM,
         30,
         25,
         100L,
         40,
         4);
+  }
+
+  @Override
+  protected void setItem() {
+    item = createItemStack(
+        Material.IRON_HOE,
+        "&rAssault Rifle",
+        6600401);
   }
 
   @Override

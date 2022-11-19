@@ -4,7 +4,7 @@ import io.github.seriousguy888.cheezjailrwguns.customitems.items.AbstractCustomI
 import org.bukkit.inventory.ItemStack;
 
 public abstract class AbstractAmmo extends AbstractCustomItem {
-  public AbstractAmmo(ItemStack item, String customItemId) {
-    super(item, customItemId);
+  public AbstractAmmo(String customItemId) {
+    super(customItemId);
   }
 }

@@ -1,9 +1,19 @@
 package io.github.seriousguy888.cheezjailrwguns.customitems.items.ammo;
 
-import org.bukkit.inventory.ItemStack;
+import org.bukkit.Material;
+
+import static io.github.seriousguy888.cheezjailrwguns.customitems.CustomItemUtils.createItemStack;
 
 public class SmallAmmo extends AbstractAmmo {
-  public SmallAmmo(ItemStack item, String customItemId) {
-    super(item, customItemId);
+  public SmallAmmo(String customItemId) {
+    super(customItemId);
+  }
+
+  @Override
+  protected void setItem() {
+    item = createItemStack(
+        Material.IRON_NUGGET,
+        "&rSmall Ammo",
+        6600301);
   }
 }

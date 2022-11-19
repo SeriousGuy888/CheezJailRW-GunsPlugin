@@ -8,14 +8,16 @@ public abstract class AbstractCustomItem {
   public ItemStack item;
   public String customItemId;
 
-  public AbstractCustomItem(ItemStack item, String customItemId) {
-    this.item = item;
+  public AbstractCustomItem(String customItemId) {
     this.customItemId = customItemId;
 
+    setItem();
     PersistentDataUtil.setString(item,
         CustomItemProperty.CUSTOM_ITEM_ID,
         customItemId);
   }
+
+  protected abstract void setItem();
 
   public boolean is(ItemStack compareItem) {
     if (compareItem == null)

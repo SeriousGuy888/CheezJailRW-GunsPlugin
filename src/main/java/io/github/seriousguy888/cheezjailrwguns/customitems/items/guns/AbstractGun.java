@@ -22,15 +22,14 @@ public abstract class AbstractGun extends AbstractCustomItem {
   protected String shootSound;
   protected String reloadSound;
 
-  public AbstractGun(ItemStack item,
-                     String customItemId,
+  public AbstractGun(String customItemId,
                      AbstractAmmo ammoType,
                      int maxAmmo,
                      float range,
                      long cooldownMs,
                      int reloadTicks,
                      float damage) {
-    super(item, customItemId);
+    super(customItemId);
     this.ammoType = ammoType;
     this.maxAmmo = maxAmmo;
     this.range = range;
