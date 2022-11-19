@@ -5,6 +5,7 @@ api-version: 1.19
 prefix: CJRW-Guns
 authors: [ SeriousGuy888 ]
 description: firearms
+depend: [ ProtocolLib ]
 commands:
   getguns:
     description: get gun
