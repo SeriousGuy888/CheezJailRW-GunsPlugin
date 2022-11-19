@@ -71,8 +71,6 @@ public class GunEvents implements Listener {
       Vector playerDir = playerLoc.getDirection().normalize();
       var bulletCollisions = heldGunType.doShotRaycasts(player, playerLoc, playerDir);
 
-      player.sendMessage(String.valueOf(bulletCollisions.size()));
-
       for (Vector rayDir : bulletCollisions.keySet()) {
         var ray = bulletCollisions.get(rayDir);
         drawBulletParticleLine(player, ray, playerLoc, rayDir, range);
