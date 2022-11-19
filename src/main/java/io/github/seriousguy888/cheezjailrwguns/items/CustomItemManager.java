@@ -1,6 +1,7 @@
 package io.github.seriousguy888.cheezjailrwguns.items;
 
 import io.github.seriousguy888.cheezjailrwguns.items.items.AbstractCustomItem;
+import io.github.seriousguy888.cheezjailrwguns.items.items.AssaultRifle;
 import io.github.seriousguy888.cheezjailrwguns.items.items.Pistol;
 import io.github.seriousguy888.cheezjailrwguns.items.items.SmallAmmo;
 import org.bukkit.Material;
@@ -24,10 +25,18 @@ public class CustomItemManager {
           60026001),
       "pistol",
       12);
+  public final static AssaultRifle ASSAULT_RIFLE = new AssaultRifle(
+      createItemStack(
+          Material.IRON_HOE,
+          "&rAssault Rifle",
+          60046001),
+      "assault_rifle",
+      24);
 
 
   public final static ArrayList<AbstractCustomItem> items = new ArrayList<>() {{
-    add(PISTOL);
     add(AMMO_SMALL);
+    add(PISTOL);
+    add(ASSAULT_RIFLE);
   }};
 }
