@@ -5,8 +5,7 @@ import org.bukkit.persistence.PersistentDataType;
 
 public enum CustomItemProperty {
   CUSTOM_ITEM_ID("custom_item", PersistentDataType.STRING),
-  GUN_AMMO("gun_ammo", PersistentDataType.INTEGER),
-  GUN_MAX_AMMO("gun_max_ammo", PersistentDataType.INTEGER);
+  GUN_AMMO("gun_ammo", PersistentDataType.INTEGER);
 
   NamespacedKey namespacedKey;
   PersistentDataType<?, ?> dataType;

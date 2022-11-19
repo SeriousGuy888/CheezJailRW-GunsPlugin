@@ -9,22 +9,34 @@ import org.bukkit.inventory.meta.Damageable;
 
 public abstract class AbstractGun extends AbstractCustomItem {
   protected final AbstractAmmo ammoType;
+  protected final int maxAmmo;
   protected final long cooldownMs;
   protected final int reloadTicks;
+  protected final float damage;
 
   public AbstractGun(ItemStack item,
                      String customItemId,
-                     int maxAmmo,
                      AbstractAmmo ammoType,
+                     int maxAmmo,
                      long cooldownMs,
-                     int reloadTicks) {
+                     int reloadTicks,
+                     float damage) {
     super(item, customItemId);
     this.ammoType = ammoType;
+    this.maxAmmo = maxAmmo;
     this.cooldownMs = cooldownMs;
     this.reloadTicks = reloadTicks;
+    this.damage = damage;
 
-    PersistentDataUtil.setInt(item, CustomItemProperty.GUN_MAX_AMMO, maxAmmo);
     setAmmo(item, maxAmmo);
+  }
+
+  public int getReloadTicks() {
+    return reloadTicks;
+  }
+
+  public float getDamage() {
+    return damage;
   }
 
   public int getAmmo(ItemStack item) {
@@ -37,8 +49,8 @@ public abstract class AbstractGun extends AbstractCustomItem {
     PersistentDataUtil.setInt(item, CustomItemProperty.GUN_AMMO, newAmmo);
   }
 
-  public int getMaxAmmo(ItemStack item) {
-    return PersistentDataUtil.getInt(item, CustomItemProperty.GUN_MAX_AMMO);
+  public int getMaxAmmo() {
+    return maxAmmo;
   }
 
   public long getCooldownMs() {
@@ -52,7 +64,6 @@ public abstract class AbstractGun extends AbstractCustomItem {
       return;
 
     int ammo = getAmmo(item);
-    int maxAmmo = getMaxAmmo(item);
 
     short maxDurability = item.getType().getMaxDurability();
     float durabilityPercentage = (float) ammo / maxAmmo;

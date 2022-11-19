@@ -43,7 +43,7 @@ public class GunEvents implements Listener {
     AbstractCustomItem heldCustomItem = CustomItemUtils.getCustomItem(heldItem);
     if (heldCustomItem == null)
       return;
-    if (!(heldCustomItem instanceof AbstractGun heldGun))
+    if (!(heldCustomItem instanceof AbstractGun heldGunType))
       return;
 
     if (action.equals(Action.RIGHT_CLICK_AIR) || action.equals(Action.RIGHT_CLICK_BLOCK)) {
@@ -54,11 +54,11 @@ public class GunEvents implements Listener {
 
       long playerLastFired = lastFiredGun.getOrDefault(player, 0L);
       long diff = System.currentTimeMillis() - playerLastFired;
-      if (diff < heldGun.getCooldownMs())
+      if (diff < heldGunType.getCooldownMs())
         return;
 
 
-      int ammo = heldGun.getAmmo(heldItem);
+      int ammo = heldGunType.getAmmo(heldItem);
       if (ammo <= 0) {
         player.getWorld().playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_HAT, 0.5f, 1);
         player.spigot().sendMessage(ChatMessageType.ACTION_BAR,
@@ -66,8 +66,8 @@ public class GunEvents implements Listener {
         return;
       }
 
-      heldGun.setAmmo(heldItem, ammo - 1);
-      heldGun.updateAmmoDisplay(heldItem);
+      heldGunType.setAmmo(heldItem, ammo - 1);
+      heldGunType.updateAmmoDisplay(heldItem);
 
       player.getWorld().playSound(
           player.getLocation(),
@@ -125,7 +125,7 @@ public class GunEvents implements Listener {
       if (!(result.getHitEntity() instanceof LivingEntity hitEntity))
         return;
 
-      int dmg = 6;
+      float dmg = heldGunType.getDamage();
       hitEntity.damage(dmg, player);
       hitEntity.setLastDamageCause(new EntityDamageEvent(player, EntityDamageEvent.DamageCause.PROJECTILE, dmg));
 
@@ -149,26 +149,26 @@ public class GunEvents implements Listener {
             return;
           }
 
-          int ammo = heldGun.getAmmo(heldItem);
-          int maxAmmo = heldGun.getMaxAmmo(heldItem);
+          int ammo = heldGunType.getAmmo(heldItem);
+          int maxAmmo = heldGunType.getMaxAmmo();
           if (ammo >= maxAmmo) {
             cancel();
             reloadingPlayers.remove(player);
             return;
           }
 
-          ItemStack ammoStack = heldGun.getCorrectAmmoStack(currHeldItem, player.getInventory());
+          ItemStack ammoStack = heldGunType.getCorrectAmmoStack(currHeldItem, player.getInventory());
           if (ammoStack == null) {
             cancel();
             reloadingPlayers.remove(player);
           } else {
             ammoStack.setAmount(ammoStack.getAmount() - 1);
-            heldGun.reloadGun(currHeldItem, 1);
+            heldGunType.reloadGun(currHeldItem, 1);
 
           }
 
         }
-      }.runTaskTimer(plugin, 0, 5);
+      }.runTaskTimer(plugin, 0, (heldGunType.getReloadTicks() / heldGunType.getMaxAmmo()));
     }
   }
 

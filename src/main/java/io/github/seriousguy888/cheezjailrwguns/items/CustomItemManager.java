@@ -23,15 +23,13 @@ public class CustomItemManager {
           Material.CARROT_ON_A_STICK,
           "&rPistol",
           60026001),
-      "pistol",
-      12);
+      "pistol");
   public final static AssaultRifle ASSAULT_RIFLE = new AssaultRifle(
       createItemStack(
           Material.IRON_HOE,
           "&rAssault Rifle",
           60046001),
-      "assault_rifle",
-      24);
+      "assault_rifle");
 
 
   public final static ArrayList<AbstractCustomItem> items = new ArrayList<>() {{
