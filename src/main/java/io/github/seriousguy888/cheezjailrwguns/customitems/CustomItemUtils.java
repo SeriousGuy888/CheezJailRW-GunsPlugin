@@ -6,6 +6,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -63,12 +64,9 @@ public class CustomItemUtils {
 
     meta.setCustomModelData(customModelData);
     meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', name));
+    meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+
     item.setItemMeta(meta);
-
-//    ListMultimap<Attribute, AttributeModifier> attributeMap = ArrayListMultimap.create();
-//    attributeMap.get(Attribute.GENERIC_ATTACK_DAMAGE).set(0);
-//    meta.setAttributeModifiers(attributeMap);
-
     return item;
   }
 
