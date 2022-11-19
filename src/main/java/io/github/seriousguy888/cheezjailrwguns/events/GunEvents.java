@@ -69,11 +69,14 @@ public class GunEvents implements Listener {
       float range = heldGunType.getRange();
       Location playerLoc = player.getEyeLocation();
       Vector playerDir = playerLoc.getDirection().normalize();
-      ArrayList<RayTraceResult> bulletCollisions = heldGunType.doShotRaycasts(player, playerLoc, playerDir);
+      var bulletCollisions = heldGunType.doShotRaycasts(player, playerLoc, playerDir);
 
-      for (RayTraceResult rayRes : bulletCollisions) {
-        drawBulletParticleLine(player, rayRes, playerLoc, playerDir, range);
-        damageHitEntity(player, rayRes, heldGunType);
+      player.sendMessage(String.valueOf(bulletCollisions.size()));
+
+      for (Vector rayDir : bulletCollisions.keySet()) {
+        var ray = bulletCollisions.get(rayDir);
+        drawBulletParticleLine(player, ray, playerLoc, rayDir, range);
+        damageHitEntity(player, ray, heldGunType);
       }
     } else if (action.equals(Action.LEFT_CLICK_AIR) || action.equals(Action.LEFT_CLICK_BLOCK)) {
       event.setCancelled(true);
@@ -142,16 +145,16 @@ public class GunEvents implements Listener {
   }
 
   private void drawBulletParticleLine(Player player,
-                                      RayTraceResult traceResult,
+                                      RayTraceResult rayResult,
                                       Location playerLoc,
-                                      Vector playerDir,
+                                      Vector rayDir,
                                       float range) {
     // Use hit location if the raycast hit something, otherwise draw the line to the
     // maximum range that it could have hit something.
     Location particleLineEnd = (
-        traceResult == null ?
-            playerDir.clone().multiply(range).add(playerLoc.toVector()) :
-            traceResult.getHitPosition()
+        rayResult == null ?
+            rayDir.multiply(range).add(playerLoc.toVector()) :
+            rayResult.getHitPosition()
     ).toLocation(player.getWorld());
 
     Location particleLineStart = playerLoc.clone();

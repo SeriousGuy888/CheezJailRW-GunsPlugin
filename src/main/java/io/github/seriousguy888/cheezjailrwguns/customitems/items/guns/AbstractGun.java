@@ -8,8 +8,6 @@ import io.github.seriousguy888.cheezjailrwguns.customitems.items.ammo.AbstractAm
 import org.bukkit.ChatColor;
 import org.bukkit.FluidCollisionMode;
 import org.bukkit.Location;
-import org.bukkit.World;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -17,8 +15,9 @@ import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.util.RayTraceResult;
 import org.bukkit.util.Vector;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
-import java.util.function.Predicate;
+import java.util.HashMap;
 
 public abstract class AbstractGun extends AbstractCustomItem {
   protected final AbstractAmmo ammoType;
@@ -27,6 +26,7 @@ public abstract class AbstractGun extends AbstractCustomItem {
   protected final long cooldownMs;
   protected final int reloadTicks;
   protected final float damage;
+  protected int simultaneousFire; // how many bullets it fires at once (optional; used by shotguns)
   protected String shootSound;
   protected String reloadSound;
 
@@ -45,10 +45,12 @@ public abstract class AbstractGun extends AbstractCustomItem {
     this.reloadTicks = reloadTicks;
     this.damage = damage;
 
+    setSimultaneousFire();
     setSounds();
 
     setAmmo(item, maxAmmo);
   }
+
 
   public float getRange() {
     return range;
@@ -60,12 +62,21 @@ public abstract class AbstractGun extends AbstractCustomItem {
     reloadSound = "generic";
   }
 
+  // Overridden by guns such as shotguns
+  protected void setSimultaneousFire() {
+    simultaneousFire = 1;
+  };
+
   public String getSoundString(GunSoundType soundType) {
     String soundSet = "generic";
     switch (soundType) {
       case SHOOT -> soundSet = shootSound;
       case RELOAD -> soundSet = reloadSound;
     }
+
+    // Some guns may not have a reload sound at all
+    if (soundSet == null)
+      return "";
 
     return "cheezjail.guns." + soundType.name().toLowerCase() + "." + soundSet;
   }
@@ -114,7 +125,7 @@ public abstract class AbstractGun extends AbstractCustomItem {
     meta.setLore(new ArrayList<String>() {{
       add("&7Ammo: &f" + ammo + "&7/" + maxAmmo);
       add("&7Range: &f" + range);
-      add("&7DMG: &f" + damage);
+      add("&7DMG: &f" + damage + (simultaneousFire != 1 ? " × " + simultaneousFire : ""));
       add(String.format("&7Reload: &f%.1fs", (float) reloadTicks / 20));
       add(String.format("&7Fire Rate: &f%.1f/s", (float) 1000 / cooldownMs));
     }}
@@ -134,26 +145,26 @@ public abstract class AbstractGun extends AbstractCustomItem {
   }
 
   // Might be overridden for guns with special shots (e.g. shotgun)
-  public ArrayList<RayTraceResult> doShotRaycasts(Player player, Location playerLoc, Vector playerDir) {
-    RayTraceResult result = castRay(player.getWorld(), playerLoc, playerDir, entity -> !entity.equals(player));
+  public HashMap<Vector, RayTraceResult> doShotRaycasts(Player player, Location playerLoc, Vector playerDir) {
+    RayTraceResult result = castRay(player, playerLoc, playerDir);
 
-    return new ArrayList<>() {{
-      add(result);
+    return new HashMap<>() {{
+      put(playerDir, result);
     }};
   }
 
-  private RayTraceResult castRay(World world,
-                                 Location playerLoc,
-                                 Vector playerDir,
-                                 Predicate<Entity> collisionPredicate) {
-    return world.rayTrace(
-        playerLoc,
-        playerDir,
+  @Nullable
+  protected RayTraceResult castRay(Player player,
+                                   Location startingLocation,
+                                   Vector direction) {
+    return player.getWorld().rayTrace(
+        startingLocation,
+        direction,
         range,
         FluidCollisionMode.NEVER,
         true,
         0.2,
-        collisionPredicate
+        entity -> !entity.equals(player)
     );
   }
 
