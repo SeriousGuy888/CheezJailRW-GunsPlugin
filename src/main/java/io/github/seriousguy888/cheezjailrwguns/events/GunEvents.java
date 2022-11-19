@@ -46,8 +46,9 @@ public class GunEvents implements Listener {
     if (!(heldCustomItem instanceof AbstractGun heldGunType)) // If this is not a gun
       return;
 
-    event.setCancelled(true);
     if (action.equals(Action.RIGHT_CLICK_AIR) || action.equals(Action.RIGHT_CLICK_BLOCK)) {
+      event.setCancelled(true);
+
       if (reloadingPlayers.contains(player))
         return;
       if (!gunNotInCooldown(player, heldGunType))
@@ -82,10 +83,11 @@ public class GunEvents implements Listener {
       damageHitEntity(player, result, heldGunType);
 
     } else if (action.equals(Action.LEFT_CLICK_AIR) || action.equals(Action.LEFT_CLICK_BLOCK)) {
+      event.setCancelled(true);
       tryReloadGun(player, heldItem, heldGunType);
     }
   }
-  
+
 
   private boolean gunNotInCooldown(Player player,
                                    AbstractGun heldGunType) {
