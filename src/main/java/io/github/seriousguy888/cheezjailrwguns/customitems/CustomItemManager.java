@@ -5,6 +5,7 @@ import io.github.seriousguy888.cheezjailrwguns.customitems.items.ammo.MediumAmmo
 import io.github.seriousguy888.cheezjailrwguns.customitems.items.ammo.SmallAmmo;
 import io.github.seriousguy888.cheezjailrwguns.customitems.items.guns.AssaultRifle;
 import io.github.seriousguy888.cheezjailrwguns.customitems.items.guns.Pistol;
+import io.github.seriousguy888.cheezjailrwguns.customitems.items.guns.Smg;
 import org.bukkit.Material;
 
 import java.util.ArrayList;
@@ -37,6 +38,12 @@ public class CustomItemManager {
           "&rAssault Rifle",
           6600401),
       "assault_rifle");
+  public final static Smg SMG = new Smg(
+      createItemStack(
+          Material.IRON_HOE,
+          "&rSMG",
+          6600501),
+      "smg");
 
 
   public final static ArrayList<AbstractCustomItem> items = new ArrayList<>() {{
@@ -44,5 +51,6 @@ public class CustomItemManager {
     add(AMMO_MEDIUM);
     add(PISTOL);
     add(ASSAULT_RIFLE);
+    add(SMG);
   }};
 }
