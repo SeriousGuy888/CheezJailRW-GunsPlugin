@@ -69,19 +69,12 @@ public class GunEvents implements Listener {
       float range = heldGunType.getRange();
       Location playerLoc = player.getEyeLocation();
       Vector playerDir = playerLoc.getDirection().normalize();
-      RayTraceResult result = player.getWorld().rayTrace(
-          playerLoc,
-          playerDir,
-          range,
-          FluidCollisionMode.NEVER,
-          true,
-          0.2,
-          entity -> !entity.equals(player)
-      );
+      ArrayList<RayTraceResult> bulletCollisions = heldGunType.doShotRaycasts(player, playerLoc, playerDir);
 
-      drawBulletParticleLine(player, result, playerLoc, playerDir, range);
-      damageHitEntity(player, result, heldGunType);
-
+      for (RayTraceResult rayRes : bulletCollisions) {
+        drawBulletParticleLine(player, rayRes, playerLoc, playerDir, range);
+        damageHitEntity(player, rayRes, heldGunType);
+      }
     } else if (action.equals(Action.LEFT_CLICK_AIR) || action.equals(Action.LEFT_CLICK_BLOCK)) {
       event.setCancelled(true);
       tryReloadGun(player, heldItem, heldGunType);
@@ -125,7 +118,7 @@ public class GunEvents implements Listener {
     float dmg = heldGunType.getDamage();
 
     boolean isHeadshot = detectHeadshot(hitEntity, traceResult);
-    if(isHeadshot) {
+    if (isHeadshot) {
       dmg *= 1.25;
       player.spigot().sendMessage(ChatMessageType.ACTION_BAR,
           TextComponent.fromLegacyText("Headshot"));

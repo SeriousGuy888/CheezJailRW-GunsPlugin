@@ -6,11 +6,19 @@ import io.github.seriousguy888.cheezjailrwguns.customitems.PersistentDataUtil;
 import io.github.seriousguy888.cheezjailrwguns.customitems.items.AbstractCustomItem;
 import io.github.seriousguy888.cheezjailrwguns.customitems.items.ammo.AbstractAmmo;
 import org.bukkit.ChatColor;
+import org.bukkit.FluidCollisionMode;
+import org.bukkit.Location;
+import org.bukkit.World;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
+import org.bukkit.util.RayTraceResult;
+import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
+import java.util.function.Predicate;
 
 public abstract class AbstractGun extends AbstractCustomItem {
   protected final AbstractAmmo ammoType;
@@ -124,6 +132,31 @@ public abstract class AbstractGun extends AbstractCustomItem {
     setAmmo(item, getAmmo(item) + amount);
     updateStatsDisplay(item);
   }
+
+  // Might be overridden for guns with special shots (e.g. shotgun)
+  public ArrayList<RayTraceResult> doShotRaycasts(Player player, Location playerLoc, Vector playerDir) {
+    RayTraceResult result = castRay(player.getWorld(), playerLoc, playerDir, entity -> !entity.equals(player));
+
+    return new ArrayList<>() {{
+      add(result);
+    }};
+  }
+
+  private RayTraceResult castRay(World world,
+                                 Location playerLoc,
+                                 Vector playerDir,
+                                 Predicate<Entity> collisionPredicate) {
+    return world.rayTrace(
+        playerLoc,
+        playerDir,
+        range,
+        FluidCollisionMode.NEVER,
+        true,
+        0.2,
+        collisionPredicate
+    );
+  }
+
 
   public ItemStack getCorrectAmmoStack(ItemStack item, Inventory inventory) {
     if (!this.is(item))
