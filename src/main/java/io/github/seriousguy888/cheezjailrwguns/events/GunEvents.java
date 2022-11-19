@@ -109,6 +109,8 @@ public class GunEvents implements Listener {
 
     heldGunType.setAmmo(heldItem, ammo - 1);
     heldGunType.updateStatsDisplay(heldItem);
+    player.spigot().sendMessage(ChatMessageType.ACTION_BAR,
+        TextComponent.fromLegacyText("Ammo: " + (ammo - 1) + "/" + heldGunType.getMaxAmmo()));
     return true;
   }
 
@@ -165,6 +167,12 @@ public class GunEvents implements Listener {
     // Don't run reloading code if gun is already at full ammo
     if (heldGunType.getAmmo(heldItem) >= heldGunType.getMaxAmmo())
       return;
+
+    ItemStack ammoStack = heldGunType.getCorrectAmmoStack(heldItem, player.getInventory());
+    if (ammoStack == null) {
+      player.spigot().sendMessage(ChatMessageType.ACTION_BAR,
+          TextComponent.fromLegacyText(ChatColor.RED + "No compatible ammo!"));
+    }
 
     reloadingPlayers.add(player);
     player.getWorld().playSound(
