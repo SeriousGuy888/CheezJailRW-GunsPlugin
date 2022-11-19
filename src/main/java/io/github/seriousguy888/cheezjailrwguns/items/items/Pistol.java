@@ -13,4 +13,10 @@ public class Pistol extends AbstractGun {
         20,
         6);
   }
+
+  @Override
+  public void setSounds() {
+    shootSound = "pistol";
+    reloadSound = "pistol";
+  }
 }

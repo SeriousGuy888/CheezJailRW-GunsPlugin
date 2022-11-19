@@ -13,4 +13,10 @@ public class AssaultRifle extends AbstractGun {
         40,
         4);
   }
+
+  @Override
+  public void setSounds() {
+    shootSound = "assault_rifle";
+    reloadSound = "assault_rifle";
+  }
 }

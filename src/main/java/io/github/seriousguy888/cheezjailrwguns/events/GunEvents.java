@@ -71,7 +71,7 @@ public class GunEvents implements Listener {
 
       player.getWorld().playSound(
           player.getLocation(),
-          "cheezjail.guns.pistol.fire",
+          heldGunType.getSoundString(AbstractGun.GunSoundType.SHOOT),
           SoundCategory.PLAYERS,
           1,
           1
@@ -134,7 +134,7 @@ public class GunEvents implements Listener {
       reloadingPlayers.add(player);
       player.getWorld().playSound(
           player.getLocation(),
-          "cheezjail.guns.pistol.reload",
+          heldGunType.getSoundString(AbstractGun.GunSoundType.RELOAD),
           1,
           1
       );

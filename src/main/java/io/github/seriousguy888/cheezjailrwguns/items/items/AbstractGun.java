@@ -14,6 +14,9 @@ public abstract class AbstractGun extends AbstractCustomItem {
   protected final int reloadTicks;
   protected final float damage;
 
+  protected String shootSound;
+  protected String reloadSound;
+
   public AbstractGun(ItemStack item,
                      String customItemId,
                      AbstractAmmo ammoType,
@@ -28,7 +31,25 @@ public abstract class AbstractGun extends AbstractCustomItem {
     this.reloadTicks = reloadTicks;
     this.damage = damage;
 
+    setSounds();
+
     setAmmo(item, maxAmmo);
+  }
+
+  // Overridden by children to set their own sounds.
+  protected void setSounds() {
+    shootSound = "generic";
+    reloadSound = "generic";
+  }
+
+  public String getSoundString(GunSoundType soundType) {
+    String soundSet = "generic";
+    switch (soundType) {
+      case SHOOT -> soundSet = shootSound;
+      case RELOAD -> soundSet = reloadSound;
+    }
+
+    return "cheezjail.guns." + soundType.name().toLowerCase() + "." + soundSet;
   }
 
   public int getReloadTicks() {
@@ -91,5 +112,10 @@ public abstract class AbstractGun extends AbstractCustomItem {
     if (!this.is(item))
       return null;
     return CustomItemUtils.getCustomItemStack(inventory, ammoType);
+  }
+
+  public enum GunSoundType {
+    SHOOT,
+    RELOAD
   }
 }
