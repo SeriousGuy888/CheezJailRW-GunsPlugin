@@ -10,6 +10,13 @@ import java.util.ArrayList;
 import static io.github.seriousguy888.cheezjailrwguns.items.CustomItemUtils.createItemStack;
 
 public class CustomItemManager {
+  // Todo: make all ammo load before guns or something like that
+  public final static SmallAmmo AMMO_SMALL = new SmallAmmo(
+      createItemStack(
+          Material.IRON_NUGGET,
+          "&rSmall Ammo",
+          60036001),
+      "ammo_small");
   public final static Pistol PISTOL = new Pistol(
       createItemStack(
           Material.CARROT_ON_A_STICK,
@@ -17,12 +24,6 @@ public class CustomItemManager {
           60026001),
       "pistol",
       12);
-  public final static SmallAmmo AMMO_SMALL = new SmallAmmo(
-      createItemStack(
-          Material.IRON_NUGGET,
-          "&rSmall Ammo",
-          60036001),
-      "ammo_small");
 
 
   public final static ArrayList<BaseCustomItem> items = new ArrayList<>() {{
