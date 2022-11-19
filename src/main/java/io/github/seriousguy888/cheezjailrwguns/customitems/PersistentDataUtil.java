@@ -1,4 +1,4 @@
-package io.github.seriousguy888.cheezjailrwguns.items;
+package io.github.seriousguy888.cheezjailrwguns.customitems;
 
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;

@@ -1,6 +1,6 @@
-package io.github.seriousguy888.cheezjailrwguns.items.items;
+package io.github.seriousguy888.cheezjailrwguns.customitems.items.guns;
 
-import io.github.seriousguy888.cheezjailrwguns.items.CustomItemManager;
+import io.github.seriousguy888.cheezjailrwguns.customitems.CustomItemManager;
 import org.bukkit.inventory.ItemStack;
 
 public class AssaultRifle extends AbstractGun {

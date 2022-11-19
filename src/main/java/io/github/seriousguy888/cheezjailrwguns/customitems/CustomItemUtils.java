@@ -1,7 +1,7 @@
-package io.github.seriousguy888.cheezjailrwguns.items;
+package io.github.seriousguy888.cheezjailrwguns.customitems;
 
 import io.github.seriousguy888.cheezjailrwguns.CheezJailRWGuns;
-import io.github.seriousguy888.cheezjailrwguns.items.items.AbstractCustomItem;
+import io.github.seriousguy888.cheezjailrwguns.customitems.items.AbstractCustomItem;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -64,6 +64,10 @@ public class CustomItemUtils {
     meta.setCustomModelData(customModelData);
     meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', name));
     item.setItemMeta(meta);
+
+//    ListMultimap<Attribute, AttributeModifier> attributeMap = ArrayListMultimap.create();
+//    attributeMap.get(Attribute.GENERIC_ATTACK_DAMAGE).set(0);
+//    meta.setAttributeModifiers(attributeMap);
 
     return item;
   }

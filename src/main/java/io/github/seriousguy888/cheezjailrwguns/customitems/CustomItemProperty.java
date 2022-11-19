@@ -1,4 +1,4 @@
-package io.github.seriousguy888.cheezjailrwguns.items;
+package io.github.seriousguy888.cheezjailrwguns.customitems;
 
 import org.bukkit.NamespacedKey;
 import org.bukkit.persistence.PersistentDataType;

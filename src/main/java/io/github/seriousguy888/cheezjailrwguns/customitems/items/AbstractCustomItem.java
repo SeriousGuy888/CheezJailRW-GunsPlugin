@@ -1,7 +1,7 @@
-package io.github.seriousguy888.cheezjailrwguns.items.items;
+package io.github.seriousguy888.cheezjailrwguns.customitems.items;
 
-import io.github.seriousguy888.cheezjailrwguns.items.CustomItemProperty;
-import io.github.seriousguy888.cheezjailrwguns.items.PersistentDataUtil;
+import io.github.seriousguy888.cheezjailrwguns.customitems.CustomItemProperty;
+import io.github.seriousguy888.cheezjailrwguns.customitems.PersistentDataUtil;
 import org.bukkit.inventory.ItemStack;
 
 public abstract class AbstractCustomItem {

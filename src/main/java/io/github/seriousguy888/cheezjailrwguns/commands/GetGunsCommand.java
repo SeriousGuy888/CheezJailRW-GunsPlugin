@@ -1,7 +1,7 @@
 package io.github.seriousguy888.cheezjailrwguns.commands;
 
-import io.github.seriousguy888.cheezjailrwguns.items.CustomItemManager;
-import io.github.seriousguy888.cheezjailrwguns.items.CustomItemUtils;
+import io.github.seriousguy888.cheezjailrwguns.customitems.CustomItemManager;
+import io.github.seriousguy888.cheezjailrwguns.customitems.CustomItemUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;

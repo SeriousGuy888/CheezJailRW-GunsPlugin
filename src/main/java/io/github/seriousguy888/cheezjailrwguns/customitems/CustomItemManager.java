@@ -1,11 +1,15 @@
-package io.github.seriousguy888.cheezjailrwguns.items;
+package io.github.seriousguy888.cheezjailrwguns.customitems;
 
-import io.github.seriousguy888.cheezjailrwguns.items.items.*;
+import io.github.seriousguy888.cheezjailrwguns.customitems.items.*;
+import io.github.seriousguy888.cheezjailrwguns.customitems.items.ammo.MediumAmmo;
+import io.github.seriousguy888.cheezjailrwguns.customitems.items.ammo.SmallAmmo;
+import io.github.seriousguy888.cheezjailrwguns.customitems.items.guns.AssaultRifle;
+import io.github.seriousguy888.cheezjailrwguns.customitems.items.guns.Pistol;
 import org.bukkit.Material;
 
 import java.util.ArrayList;
 
-import static io.github.seriousguy888.cheezjailrwguns.items.CustomItemUtils.createItemStack;
+import static io.github.seriousguy888.cheezjailrwguns.customitems.CustomItemUtils.createItemStack;
 
 public class CustomItemManager {
   // Todo: make all ammo load before guns or something like that

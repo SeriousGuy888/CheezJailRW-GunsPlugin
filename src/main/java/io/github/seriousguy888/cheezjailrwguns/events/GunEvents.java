@@ -1,9 +1,9 @@
 package io.github.seriousguy888.cheezjailrwguns.events;
 
 import io.github.seriousguy888.cheezjailrwguns.CheezJailRWGuns;
-import io.github.seriousguy888.cheezjailrwguns.items.CustomItemUtils;
-import io.github.seriousguy888.cheezjailrwguns.items.items.AbstractCustomItem;
-import io.github.seriousguy888.cheezjailrwguns.items.items.AbstractGun;
+import io.github.seriousguy888.cheezjailrwguns.customitems.CustomItemUtils;
+import io.github.seriousguy888.cheezjailrwguns.customitems.items.AbstractCustomItem;
+import io.github.seriousguy888.cheezjailrwguns.customitems.items.guns.AbstractGun;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.*;

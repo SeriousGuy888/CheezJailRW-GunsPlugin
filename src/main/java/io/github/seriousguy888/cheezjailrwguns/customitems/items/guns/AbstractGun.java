@@ -1,8 +1,10 @@
-package io.github.seriousguy888.cheezjailrwguns.items.items;
+package io.github.seriousguy888.cheezjailrwguns.customitems.items.guns;
 
-import io.github.seriousguy888.cheezjailrwguns.items.CustomItemProperty;
-import io.github.seriousguy888.cheezjailrwguns.items.CustomItemUtils;
-import io.github.seriousguy888.cheezjailrwguns.items.PersistentDataUtil;
+import io.github.seriousguy888.cheezjailrwguns.customitems.CustomItemProperty;
+import io.github.seriousguy888.cheezjailrwguns.customitems.CustomItemUtils;
+import io.github.seriousguy888.cheezjailrwguns.customitems.PersistentDataUtil;
+import io.github.seriousguy888.cheezjailrwguns.customitems.items.AbstractCustomItem;
+import io.github.seriousguy888.cheezjailrwguns.customitems.items.ammo.AbstractAmmo;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
