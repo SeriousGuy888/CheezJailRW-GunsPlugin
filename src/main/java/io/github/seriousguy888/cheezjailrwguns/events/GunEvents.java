@@ -123,9 +123,29 @@ public class GunEvents implements Listener {
       return;
 
     float dmg = heldGunType.getDamage();
+
+    boolean isHeadshot = detectHeadshot(hitEntity, traceResult);
+    if(isHeadshot) {
+      dmg *= 1.25;
+      player.spigot().sendMessage(ChatMessageType.ACTION_BAR,
+          TextComponent.fromLegacyText("Headshot"));
+    }
+
     hitEntity.damage(dmg, player);
     hitEntity.setLastDamageCause(new EntityDamageEvent(player, EntityDamageEvent.DamageCause.PROJECTILE, dmg));
     hitEntity.setNoDamageTicks(0);
+  }
+
+  private boolean detectHeadshot(LivingEntity hitEntity,
+                                 RayTraceResult traceResult) {
+    Location eyeLoc = hitEntity.getEyeLocation();
+    double eyeHeight = hitEntity.getLocation().getY() + hitEntity.getEyeHeight() + 0.175;
+    Location hitLoc = traceResult.getHitPosition().toLocation(hitEntity.getWorld());
+
+    double locDist = eyeLoc.distance(hitLoc);
+    double eyeHeightDist = Math.abs(hitLoc.getY() - eyeHeight);
+
+    return (locDist < 1.25 && eyeHeightDist < 0.25);
   }
 
   private void drawBulletParticleLine(Player player,
