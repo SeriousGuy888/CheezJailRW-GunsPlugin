@@ -131,6 +131,11 @@ public class GunEvents implements Listener {
 
     } else if (event.getAction().equals(Action.LEFT_CLICK_AIR) ||
         event.getAction().equals(Action.LEFT_CLICK_BLOCK)) {
+
+      // Don't run reloading code if gun is already at full ammo
+      if(heldGunType.getAmmo(heldItem) >= heldGunType.getMaxAmmo())
+        return;
+
       reloadingPlayers.add(player);
       player.getWorld().playSound(
           player.getLocation(),
