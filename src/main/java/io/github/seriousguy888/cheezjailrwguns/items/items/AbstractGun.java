@@ -10,15 +10,18 @@ import org.bukkit.inventory.meta.Damageable;
 public abstract class AbstractGun extends AbstractCustomItem {
   protected final AbstractAmmo ammoType;
   protected final long cooldownMs;
+  protected final int reloadTicks;
 
   public AbstractGun(ItemStack item,
                      String customItemId,
                      int maxAmmo,
                      AbstractAmmo ammoType,
-                     long cooldownMs) {
+                     long cooldownMs,
+                     int reloadTicks) {
     super(item, customItemId);
     this.ammoType = ammoType;
     this.cooldownMs = cooldownMs;
+    this.reloadTicks = reloadTicks;
 
     PersistentDataUtil.setInt(item, CustomItemProperty.GUN_MAX_AMMO, maxAmmo);
     setAmmo(item, maxAmmo);
