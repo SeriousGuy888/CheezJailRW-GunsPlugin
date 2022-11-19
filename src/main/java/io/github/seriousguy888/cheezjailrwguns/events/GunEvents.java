@@ -15,20 +15,22 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.RayTraceResult;
 import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class GunEvents implements Listener {
+  private final CheezJailRWGuns plugin;
   private final ArrayList<Player> reloadingPlayers;
-  CheezJailRWGuns plugin;
+  private final HashMap<Player, Long> lastFiredGun;
 
   public GunEvents() {
     plugin = CheezJailRWGuns.getPlugin();
     reloadingPlayers = new ArrayList<>();
+    lastFiredGun = new HashMap<>();
   }
 
 
@@ -46,6 +48,11 @@ public class GunEvents implements Listener {
     if (action.equals(Action.RIGHT_CLICK_AIR) || action.equals(Action.RIGHT_CLICK_BLOCK)) {
       if (CustomItemManager.PISTOL.is(heldItem)) {
         event.setCancelled(true);
+
+        long playerLastFired = lastFiredGun.getOrDefault(player, 0L);
+        long diff = System.currentTimeMillis() - playerLastFired;
+        if (diff < CustomItemManager.PISTOL.getCooldownMs())
+          return;
 
         int ammo = PersistentDataUtil.getInt(heldItem, CustomItemProperty.GUN_AMMO);
         if (ammo <= 0) {
@@ -66,6 +73,8 @@ public class GunEvents implements Listener {
             1,
             1
         );
+
+        lastFiredGun.put(player, System.currentTimeMillis());
 
         Location playerLoc = player.getEyeLocation();
         Vector playerDir = playerLoc.getDirection().normalize();

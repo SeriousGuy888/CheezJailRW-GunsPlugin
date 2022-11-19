@@ -9,10 +9,16 @@ import org.bukkit.inventory.meta.Damageable;
 
 public abstract class AbstractGun extends BaseCustomItem {
   protected final AbstractAmmo ammoType;
+  protected final long cooldownMs;
 
-  public AbstractGun(ItemStack item, String customItemId, int maxAmmo, AbstractAmmo ammoType) {
+  public AbstractGun(ItemStack item,
+                     String customItemId,
+                     int maxAmmo,
+                     AbstractAmmo ammoType,
+                     long cooldownMs) {
     super(item, customItemId);
     this.ammoType = ammoType;
+    this.cooldownMs = cooldownMs;
 
     PersistentDataUtil.setInt(item, CustomItemProperty.GUN_MAX_AMMO, maxAmmo);
     setAmmo(item, maxAmmo);
@@ -32,10 +38,8 @@ public abstract class AbstractGun extends BaseCustomItem {
     return PersistentDataUtil.getInt(item, CustomItemProperty.GUN_MAX_AMMO);
   }
 
-  public void setMaxAmmo(ItemStack item, int newMaxAmmo) {
-    if (!this.is(item))
-      return;
-    PersistentDataUtil.setInt(item, CustomItemProperty.GUN_MAX_AMMO, newMaxAmmo);
+  public long getCooldownMs() {
+    return cooldownMs;
   }
 
   public void updateAmmoDisplay(ItemStack item) {
