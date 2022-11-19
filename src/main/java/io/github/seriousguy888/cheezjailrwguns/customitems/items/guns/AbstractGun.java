@@ -5,9 +5,12 @@ import io.github.seriousguy888.cheezjailrwguns.customitems.CustomItemUtils;
 import io.github.seriousguy888.cheezjailrwguns.customitems.PersistentDataUtil;
 import io.github.seriousguy888.cheezjailrwguns.customitems.items.AbstractCustomItem;
 import io.github.seriousguy888.cheezjailrwguns.customitems.items.ammo.AbstractAmmo;
+import org.bukkit.ChatColor;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
+
+import java.util.ArrayList;
 
 public abstract class AbstractGun extends AbstractCustomItem {
   protected final AbstractAmmo ammoType;
@@ -18,6 +21,7 @@ public abstract class AbstractGun extends AbstractCustomItem {
   protected final float damage;
   protected String shootSound;
   protected String reloadSound;
+
   public AbstractGun(ItemStack item,
                      String customItemId,
                      AbstractAmmo ammoType,
@@ -85,7 +89,7 @@ public abstract class AbstractGun extends AbstractCustomItem {
     return cooldownMs;
   }
 
-  public void updateAmmoDisplay(ItemStack item) {
+  public void updateStatsDisplay(ItemStack item) {
     if (!this.is(item))
       return;
     if (!(item.getItemMeta() instanceof Damageable meta))
@@ -95,14 +99,21 @@ public abstract class AbstractGun extends AbstractCustomItem {
 
     short maxDurability = item.getType().getMaxDurability();
     float durabilityPercentage = (float) ammo / maxAmmo;
-    int damage = Math.min(
+    int durabilityDamage = Math.min(
         Math.round((1 - durabilityPercentage) * maxDurability),
         maxDurability);
 
-    meta.setDamage(damage);
-//    meta.setLore(new ArrayList<>() {{
-//      add(ChatColor.GRAY + "Ammo: " + ammo + "/" + maxAmmo);
-//    }});
+    meta.setDamage(durabilityDamage);
+    meta.setLore(new ArrayList<String>() {{
+      add("&7Ammo: &f" + ammo + "&7/" + maxAmmo);
+      add("&7Range: &f" + range);
+      add("&7DMG: &f" + damage);
+      add(String.format("&7Reload: &f%.1fs", (float) reloadTicks / 20));
+      add(String.format("&7Fire Rate: &f%.1f/s", (float) 1000 / cooldownMs));
+    }}
+        .stream()
+        .map(e -> ChatColor.translateAlternateColorCodes('&', e))
+        .toList());
 
     item.setItemMeta(meta);
   }
@@ -112,7 +123,7 @@ public abstract class AbstractGun extends AbstractCustomItem {
       return;
 
     setAmmo(item, getAmmo(item) + amount);
-    updateAmmoDisplay(item);
+    updateStatsDisplay(item);
   }
 
   public ItemStack getCorrectAmmoStack(ItemStack item, Inventory inventory) {

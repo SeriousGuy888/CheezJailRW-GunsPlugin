@@ -108,7 +108,7 @@ public class GunEvents implements Listener {
     }
 
     heldGunType.setAmmo(heldItem, ammo - 1);
-    heldGunType.updateAmmoDisplay(heldItem);
+    heldGunType.updateStatsDisplay(heldItem);
     return true;
   }
 
