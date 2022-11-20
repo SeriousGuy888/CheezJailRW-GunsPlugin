@@ -1,7 +1,7 @@
 package io.github.seriousguy888.cheezjailrwguns.commands;
 
 import io.github.seriousguy888.cheezjailrwguns.customitems.CustomItemManager;
-import io.github.seriousguy888.cheezjailrwguns.customitems.CustomItemUtils;
+import io.github.seriousguy888.cheezjailrwguns.customitems.CustomItemUtil;
 import io.github.seriousguy888.cheezjailrwguns.customitems.items.AbstractCustomItem;
 import io.github.seriousguy888.cheezjailrwguns.customitems.items.guns.AbstractGun;
 import org.bukkit.Bukkit;
@@ -49,7 +49,7 @@ public class GetGunsCommand implements TabExecutor {
 
 
     if (validItems.contains(itemName)) {
-      AbstractCustomItem customItem = CustomItemUtils.getCustomItem(itemName);
+      AbstractCustomItem customItem = CustomItemUtil.getCustomItem(itemName);
       ItemStack item = customItem.item;
       item.setAmount(amount);
 

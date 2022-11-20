@@ -5,10 +5,9 @@ import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
 import io.github.seriousguy888.cheezjailrwguns.CheezJailRWGuns;
-import io.github.seriousguy888.cheezjailrwguns.customitems.CustomItemUtils;
+import io.github.seriousguy888.cheezjailrwguns.customitems.CustomItemUtil;
 import io.github.seriousguy888.cheezjailrwguns.customitems.items.AbstractCustomItem;
 import io.github.seriousguy888.cheezjailrwguns.customitems.items.guns.interfaces.IScopedGun;
-import io.github.seriousguy888.cheezjailrwguns.utils.ScopeUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -73,7 +72,7 @@ public class ScopeEvents implements Listener {
   public void onSneak(PlayerToggleSneakEvent event) {
     Player player = event.getPlayer();
     ItemStack heldItem = player.getInventory().getItemInMainHand();
-    AbstractCustomItem heldCustomItem = CustomItemUtils.getCustomItem(heldItem);
+    AbstractCustomItem heldCustomItem = CustomItemUtil.getCustomItem(heldItem);
 
     if (heldCustomItem == null) // If this is not a plugin managed custom item
       return;

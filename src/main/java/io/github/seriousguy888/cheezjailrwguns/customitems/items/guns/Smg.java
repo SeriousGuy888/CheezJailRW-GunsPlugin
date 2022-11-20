@@ -2,9 +2,8 @@ package io.github.seriousguy888.cheezjailrwguns.customitems.items.guns;
 
 import io.github.seriousguy888.cheezjailrwguns.customitems.CustomItemManager;
 import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
 
-import static io.github.seriousguy888.cheezjailrwguns.customitems.CustomItemUtils.createItemStack;
+import static io.github.seriousguy888.cheezjailrwguns.customitems.CustomItemUtil.createItemStack;
 
 public class Smg extends AbstractGun {
   public Smg(String customItemId) {

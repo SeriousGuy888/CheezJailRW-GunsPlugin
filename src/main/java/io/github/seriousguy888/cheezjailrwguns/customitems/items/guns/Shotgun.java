@@ -10,7 +10,7 @@ import org.bukkit.util.Vector;
 import java.util.HashMap;
 import java.util.Random;
 
-import static io.github.seriousguy888.cheezjailrwguns.customitems.CustomItemUtils.createItemStack;
+import static io.github.seriousguy888.cheezjailrwguns.customitems.CustomItemUtil.createItemStack;
 
 public class Shotgun extends AbstractGun {
   public Shotgun(String customItemId) {

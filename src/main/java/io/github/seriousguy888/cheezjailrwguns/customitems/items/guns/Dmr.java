@@ -4,7 +4,7 @@ import io.github.seriousguy888.cheezjailrwguns.customitems.CustomItemManager;
 import io.github.seriousguy888.cheezjailrwguns.customitems.items.guns.interfaces.IScopedGun;
 import org.bukkit.Material;
 
-import static io.github.seriousguy888.cheezjailrwguns.customitems.CustomItemUtils.createItemStack;
+import static io.github.seriousguy888.cheezjailrwguns.customitems.CustomItemUtil.createItemStack;
 
 public class Dmr extends AbstractGun implements IScopedGun {
   public Dmr(String customItemId) {

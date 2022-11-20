@@ -12,7 +12,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Arrays;
 
-public class CustomItemUtils {
+public class CustomItemUtil {
   /**
    * @param item input item
    * @return whether the input item is a custom item managed by the plugin

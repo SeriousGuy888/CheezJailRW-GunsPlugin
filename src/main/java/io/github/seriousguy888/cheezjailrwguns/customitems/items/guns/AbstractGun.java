@@ -1,13 +1,12 @@
 package io.github.seriousguy888.cheezjailrwguns.customitems.items.guns;
 
 import io.github.seriousguy888.cheezjailrwguns.customitems.CustomItemProperty;
-import io.github.seriousguy888.cheezjailrwguns.customitems.CustomItemUtils;
+import io.github.seriousguy888.cheezjailrwguns.customitems.CustomItemUtil;
 import io.github.seriousguy888.cheezjailrwguns.customitems.PersistentDataUtil;
 import io.github.seriousguy888.cheezjailrwguns.customitems.items.AbstractCustomItem;
 import io.github.seriousguy888.cheezjailrwguns.customitems.items.ammo.AbstractAmmo;
 import io.github.seriousguy888.cheezjailrwguns.customitems.items.guns.interfaces.IScopedGun;
 import io.github.seriousguy888.cheezjailrwguns.utils.ScopeUtil;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.FluidCollisionMode;
 import org.bukkit.Location;
@@ -211,7 +210,7 @@ public abstract class AbstractGun extends AbstractCustomItem {
   public ItemStack getCorrectAmmoStack(ItemStack item, Inventory inventory) {
     if (!this.is(item))
       return null;
-    return CustomItemUtils.getCustomItemStack(inventory, ammoType);
+    return CustomItemUtil.getCustomItemStack(inventory, ammoType);
   }
 
   public enum GunSoundType {

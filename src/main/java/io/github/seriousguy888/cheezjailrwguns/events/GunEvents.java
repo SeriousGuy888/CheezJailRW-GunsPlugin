@@ -1,7 +1,7 @@
 package io.github.seriousguy888.cheezjailrwguns.events;
 
 import io.github.seriousguy888.cheezjailrwguns.CheezJailRWGuns;
-import io.github.seriousguy888.cheezjailrwguns.customitems.CustomItemUtils;
+import io.github.seriousguy888.cheezjailrwguns.customitems.CustomItemUtil;
 import io.github.seriousguy888.cheezjailrwguns.customitems.items.AbstractCustomItem;
 import io.github.seriousguy888.cheezjailrwguns.customitems.items.guns.AbstractGun;
 import net.md_5.bungee.api.ChatMessageType;
@@ -40,7 +40,7 @@ public class GunEvents implements Listener {
     Action action = event.getAction();
     ItemStack heldItem = player.getInventory().getItemInMainHand();
 
-    AbstractCustomItem heldCustomItem = CustomItemUtils.getCustomItem(heldItem);
+    AbstractCustomItem heldCustomItem = CustomItemUtil.getCustomItem(heldItem);
     if (heldCustomItem == null) // If this is not a plugin managed custom item
       return;
     if (!(heldCustomItem instanceof AbstractGun heldGunType)) // If this is not a gun

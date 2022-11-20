@@ -11,7 +11,7 @@ public enum CustomItemProperty {
   PersistentDataType<?, ?> dataType;
 
   <T, Z> CustomItemProperty(String propertyKey, PersistentDataType<T, Z> dataType) {
-    this.namespacedKey = CustomItemUtils.getNamespacedKey(propertyKey);
+    this.namespacedKey = CustomItemUtil.getNamespacedKey(propertyKey);
     this.dataType = dataType;
   }
 }
