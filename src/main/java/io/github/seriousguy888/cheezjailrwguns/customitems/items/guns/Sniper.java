@@ -22,12 +22,12 @@ public class Sniper extends AbstractGun implements IScopedGun {
     item = createItemStack(
         Material.GOLDEN_HOE,
         "&rSniper Rifle",
-        6600701);
+        6600801);
   }
 
   @Override
   public void setSounds() {
-    shootSound = "shoot";
+    shootSound = "sniper";
     reloadSound = "generic";
   }
 }
