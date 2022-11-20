@@ -10,6 +10,7 @@ import io.github.seriousguy888.cheezjailrwguns.customitems.items.AbstractCustomI
 import io.github.seriousguy888.cheezjailrwguns.customitems.items.guns.interfaces.IScopedGun;
 import io.github.seriousguy888.cheezjailrwguns.utils.ScopeUtil;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -96,6 +97,9 @@ public class ScopeEvents implements Listener {
         .write(2, 5); // Slot (helmet)
 
     if (isScoping) {
+      if(player.getGameMode() == GameMode.SPECTATOR)
+        return;
+
       scopingPlayers.add(player);
 
       // Set helmet in packet to be a pumpkin
