@@ -8,6 +8,7 @@ import io.github.seriousguy888.cheezjailrwguns.CheezJailRWGuns;
 import io.github.seriousguy888.cheezjailrwguns.customitems.CustomItemUtils;
 import io.github.seriousguy888.cheezjailrwguns.customitems.items.AbstractCustomItem;
 import io.github.seriousguy888.cheezjailrwguns.customitems.items.guns.interfaces.IScopedGun;
+import io.github.seriousguy888.cheezjailrwguns.utils.ScopeUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -24,9 +25,10 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.ArrayList;
 import java.util.List;
 
+import static io.github.seriousguy888.cheezjailrwguns.utils.ScopeUtil.scopingPlayers;
+
 public class ScopeEvents implements Listener {
   private final Plugin plugin;
-  private final ArrayList<Player> scopingPlayers;
 
   private final ItemStack scopePumpkin = new ItemStack(Material.CARVED_PUMPKIN);
   private final PotionEffect snipingSlowness = new PotionEffect(PotionEffectType.SLOW,
@@ -39,7 +41,6 @@ public class ScopeEvents implements Listener {
 
   public ScopeEvents() {
     plugin = CheezJailRWGuns.getPlugin();
-    scopingPlayers = new ArrayList<>();
 
     ItemMeta pumpkinMeta = scopePumpkin.getItemMeta();
     if (pumpkinMeta != null) {

@@ -5,6 +5,9 @@ import io.github.seriousguy888.cheezjailrwguns.customitems.CustomItemUtils;
 import io.github.seriousguy888.cheezjailrwguns.customitems.PersistentDataUtil;
 import io.github.seriousguy888.cheezjailrwguns.customitems.items.AbstractCustomItem;
 import io.github.seriousguy888.cheezjailrwguns.customitems.items.ammo.AbstractAmmo;
+import io.github.seriousguy888.cheezjailrwguns.customitems.items.guns.interfaces.IScopedGun;
+import io.github.seriousguy888.cheezjailrwguns.utils.ScopeUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.FluidCollisionMode;
 import org.bukkit.Location;
@@ -18,6 +21,7 @@ import org.bukkit.util.Vector;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 public abstract class AbstractGun extends AbstractCustomItem {
   protected final AbstractAmmo ammoType;
@@ -65,7 +69,7 @@ public abstract class AbstractGun extends AbstractCustomItem {
   // Overridden by guns such as shotguns
   protected void setSimultaneousFire() {
     simultaneousFire = 1;
-  };
+  }
 
   public String getSoundString(GunSoundType soundType) {
     String soundSet = "generic";
@@ -146,11 +150,46 @@ public abstract class AbstractGun extends AbstractCustomItem {
 
   // Might be overridden for guns with special shots (e.g. shotgun)
   public HashMap<Vector, RayTraceResult> doShotRaycasts(Player player, Location playerLoc, Vector playerDir) {
-    RayTraceResult result = castRay(player, playerLoc, playerDir);
+    Vector raycastVec = playerDir.clone();
+
+    if (this instanceof IScopedGun && !ScopeUtil.isPlayerScoping(player)) {
+      Random random = new Random();
+      Vector perpVec = getPerpendicularDir(playerLoc);
+      raycastVec = randomlyRotateVector(raycastVec, perpVec, random, 5, 5);
+    }
+
+    RayTraceResult result = castRay(player, playerLoc, raycastVec);
 
     return new HashMap<>() {{
       put(playerDir, result);
     }};
+  }
+
+  protected Vector randomlyRotateVector(Vector vectorToRotate,
+                                        Vector perpendicularVector,
+                                        Random random,
+                                        float verVariationDeg,
+                                        float horFariationDeg) {
+    // scuffed math that is just good enough to work
+
+    // Vertical rotation
+    Vector offset = perpendicularVector.multiply(
+        Math.toRadians((random.nextGaussian() - 0.5) * verVariationDeg));
+
+    // Horizontal rotation (rotated about the perpendicular axis provided)
+    double angle = Math.toRadians((random.nextGaussian() - 0.5) * horFariationDeg);
+
+    return vectorToRotate
+        .add(offset)
+        .rotateAroundAxis(perpendicularVector, angle)
+        .normalize();
+  }
+
+  protected Vector getPerpendicularDir(Location loc) {
+    Location perp = loc.clone();
+    perp.setPitch(perp.getPitch() + 90f);
+//    perp.setYaw(perp.getYaw() + 90f);
+    return perp.getDirection();
   }
 
   @Nullable

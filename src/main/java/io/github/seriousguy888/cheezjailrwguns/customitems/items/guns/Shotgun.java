@@ -33,26 +33,14 @@ public class Shotgun extends AbstractGun {
 
   @Override
   public HashMap<Vector, RayTraceResult> doShotRaycasts(Player player, Location playerLoc, Vector playerDir) {
-    // Absolutely disgusting code because i barely understand vector math
-    // todo: learn vectors and redo this code
-
     HashMap<Vector, RayTraceResult> bulletCollisions = new HashMap<>();
 
-    Location locPerpendicular = playerLoc.clone();
-    locPerpendicular.setPitch(locPerpendicular.getPitch() + 90f);
-    locPerpendicular.setYaw(locPerpendicular.getYaw() + 90f);
 
-
-    float spread = 0.2f;
-    Vector dir = playerDir.clone();
     Random random = new Random();
-    for (int i = 0; i < simultaneousFire; i++) {
-      Vector offset = locPerpendicular.getDirection().multiply(spread);
-      Vector raycastVec = dir.clone()
-          .add(offset)
-          .rotateAroundAxis(playerDir, random.nextGaussian() * (Math.PI * 2))
-          .normalize();
+    Vector perpVec = getPerpendicularDir(playerLoc);
 
+    for (int i = 0; i < simultaneousFire; i++) {
+      Vector raycastVec = randomlyRotateVector(playerDir.clone(), perpVec, random, 15, 15);
       bulletCollisions.put(raycastVec, castRay(player, playerLoc, raycastVec));
     }
 
