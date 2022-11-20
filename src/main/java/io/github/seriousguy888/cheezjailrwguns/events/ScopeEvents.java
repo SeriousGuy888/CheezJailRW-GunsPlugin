@@ -7,13 +7,13 @@ import com.comphenix.protocol.events.PacketEvent;
 import io.github.seriousguy888.cheezjailrwguns.CheezJailRWGuns;
 import io.github.seriousguy888.cheezjailrwguns.customitems.CustomItemUtils;
 import io.github.seriousguy888.cheezjailrwguns.customitems.items.AbstractCustomItem;
-import io.github.seriousguy888.cheezjailrwguns.customitems.items.guns.AbstractGun;
 import io.github.seriousguy888.cheezjailrwguns.customitems.items.guns.interfaces.IScopedGun;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -71,15 +71,19 @@ public class ScopeEvents implements Listener {
   public void onSneak(PlayerToggleSneakEvent event) {
     Player player = event.getPlayer();
     ItemStack heldItem = player.getInventory().getItemInMainHand();
-
-
     AbstractCustomItem heldCustomItem = CustomItemUtils.getCustomItem(heldItem);
+
     if (heldCustomItem == null) // If this is not a plugin managed custom item
       return;
     if (!(heldCustomItem instanceof IScopedGun)) // If this is not a gun
       return;
 
     updateScoping(player, event.isSneaking());
+  }
+
+  @EventHandler
+  public void onItemSwitch(PlayerItemHeldEvent event) {
+    updateScoping(event.getPlayer(), false);
   }
 
   private void updateScoping(Player player, boolean isScoping) {
