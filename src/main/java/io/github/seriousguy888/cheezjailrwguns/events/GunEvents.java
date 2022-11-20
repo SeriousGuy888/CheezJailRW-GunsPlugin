@@ -178,6 +178,10 @@ public class GunEvents implements Listener {
   private void tryReloadGun(Player player,
                             ItemStack heldItem,
                             AbstractGun heldGunType) {
+    // No double reloading
+    if (reloadingPlayers.contains(player))
+      return;
+
     // Don't run reloading code if gun is already at full ammo
     if (heldGunType.getAmmo(heldItem) >= heldGunType.getMaxAmmo())
       return;
