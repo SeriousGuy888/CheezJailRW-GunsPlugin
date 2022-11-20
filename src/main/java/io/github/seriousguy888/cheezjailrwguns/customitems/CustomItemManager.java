@@ -20,6 +20,7 @@ public class CustomItemManager {
   public final static Smg SMG = new Smg("smg");
   public final static CompactSmg COMPACT_SMG = new CompactSmg("compact_smg");
   public final static Shotgun SHOTGUN = new Shotgun("shotgun");
+  public final static Sniper SNIPER = new Sniper("sniper");
 
 
   public final static ArrayList<AbstractCustomItem> items = new ArrayList<>() {{
@@ -32,5 +33,6 @@ public class CustomItemManager {
     add(SMG);
     add(COMPACT_SMG);
     add(SHOTGUN);
+    add(SNIPER);
   }};
 }
