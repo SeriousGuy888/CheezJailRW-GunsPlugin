@@ -17,6 +17,8 @@ import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +28,13 @@ public class ScopeEvents implements Listener {
   private final ArrayList<Player> scopingPlayers;
 
   private final ItemStack scopePumpkin = new ItemStack(Material.CARVED_PUMPKIN);
+  private final PotionEffect snipingSlowness = new PotionEffect(PotionEffectType.SLOW,
+      1000000,
+      6,
+      true,
+      false,
+      false);
+
 
   public ScopeEvents() {
     plugin = CheezJailRWGuns.getPlugin();
@@ -82,10 +91,25 @@ public class ScopeEvents implements Listener {
 
     if (isScoping) {
       scopingPlayers.add(player);
+
+      // Set helmet in packet to be a pumpkin
       helmetPacket.getItemModifier().write(0, scopePumpkin);
+
+      // Add slowness to the player
+      player.addPotionEffect(snipingSlowness);
     } else {
       scopingPlayers.remove(player);
+
+      // Undo the client side pumpkin, player's revert to actual helmet
       helmetPacket.getItemModifier().write(0, player.getInventory().getHelmet());
+
+      // Remove slowness if it is the same level of slowness applied by the scope
+      PotionEffect appliedSlowness = player.getPotionEffect(snipingSlowness.getType());
+      if (appliedSlowness == null)
+        return;
+      if (appliedSlowness.getAmplifier() == snipingSlowness.getAmplifier()) {
+        player.removePotionEffect(appliedSlowness.getType());
+      }
     }
 
     try {
