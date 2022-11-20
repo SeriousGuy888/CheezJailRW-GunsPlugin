@@ -14,22 +14,22 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.RayTraceResult;
 import org.bukkit.util.Vector;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class GunEvents implements Listener {
   private final CheezJailRWGuns plugin;
-  private final ArrayList<Player> reloadingPlayers;
+  private final HashMap<Player, BukkitRunnable> reloadTasks;
   private final HashMap<Player, Long> lastFiredGun;
 
   public GunEvents() {
     plugin = CheezJailRWGuns.getPlugin();
-    reloadingPlayers = new ArrayList<>();
+    reloadTasks = new HashMap<>();
     lastFiredGun = new HashMap<>();
   }
 
@@ -49,7 +49,7 @@ public class GunEvents implements Listener {
     if (action.equals(Action.RIGHT_CLICK_AIR) || action.equals(Action.RIGHT_CLICK_BLOCK)) {
       event.setCancelled(true);
 
-      if (reloadingPlayers.contains(player))
+      if (reloadTasks.containsKey(player))
         return;
       if (!gunNotInCooldown(player, heldGunType))
         return;
@@ -179,7 +179,7 @@ public class GunEvents implements Listener {
                             ItemStack heldItem,
                             AbstractGun heldGunType) {
     // No double reloading
-    if (reloadingPlayers.contains(player))
+    if (reloadTasks.containsKey(player))
       return;
 
     // Don't run reloading code if gun is already at full ammo
@@ -192,7 +192,6 @@ public class GunEvents implements Listener {
           TextComponent.fromLegacyText(ChatColor.RED + "No compatible ammo!"));
     }
 
-    reloadingPlayers.add(player);
     player.getWorld().playSound(
         player.getLocation(),
         heldGunType.getSoundString(AbstractGun.GunSoundType.RELOAD),
@@ -200,36 +199,51 @@ public class GunEvents implements Listener {
         1
     );
 
-    new BukkitRunnable() {
+
+    int ticksPerBullet = heldGunType.getReloadTicks() / heldGunType.getMaxAmmo();
+
+    BukkitRunnable reloadTask = new BukkitRunnable() {
       @Override
       public void run() {
         ItemStack currHeldItem = player.getInventory().getItemInMainHand();
-        if (!heldItem.equals(currHeldItem)) {
-          cancel();
-          reloadingPlayers.remove(player);
-          return;
-        }
 
         int ammo = heldGunType.getAmmo(heldItem);
         int maxAmmo = heldGunType.getMaxAmmo();
-        if (ammo >= maxAmmo) {
-          cancel();
-          reloadingPlayers.remove(player);
-          return;
-        }
-
         ItemStack ammoStack = heldGunType.getCorrectAmmoStack(currHeldItem, player.getInventory());
-        if (ammoStack == null) {
+        if (ammo + 1 >= maxAmmo || ammoStack == null) {
           cancel();
-          reloadingPlayers.remove(player);
-        } else {
-          ammoStack.setAmount(ammoStack.getAmount() - 1);
-          heldGunType.reloadGun(currHeldItem, 1);
+          player.setCooldown(heldItem.getType(), 0);
+          reloadTasks.remove(player);
 
+          if (ammo >= maxAmmo || ammoStack == null)
+            return;
         }
 
+        ammoStack.setAmount(ammoStack.getAmount() - 1);
+        heldGunType.reloadGun(currHeldItem, 1);
+
+        if (!this.isCancelled())
+          player.setCooldown(heldItem.getType(), ticksPerBullet);
       }
-    }.runTaskTimer(plugin, 0, (heldGunType.getReloadTicks() / heldGunType.getMaxAmmo()));
+    };
+
+    reloadTasks.put(player, reloadTask);
+    player.setCooldown(heldItem.getType(), ticksPerBullet);
+    reloadTask.runTaskTimer(plugin, ticksPerBullet, ticksPerBullet);
+  }
+
+  @EventHandler
+  public void onItemSwitch(PlayerItemHeldEvent event) {
+    Player player = event.getPlayer();
+
+    if (reloadTasks.containsKey(player)) {
+      reloadTasks.get(player).cancel();
+      reloadTasks.remove(player);
+
+      ItemStack prevHeldItem = player.getInventory().getItem(event.getPreviousSlot());
+      if (prevHeldItem != null)
+        player.setCooldown(prevHeldItem.getType(), 0);
+    }
   }
 }
 
