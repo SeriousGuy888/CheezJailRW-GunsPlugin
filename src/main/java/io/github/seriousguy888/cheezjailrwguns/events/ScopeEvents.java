@@ -25,7 +25,7 @@ public class ScopeEvents implements Listener {
   private final Plugin plugin;
   private final ArrayList<Player> scopingPlayers;
 
-  private final ItemStack scopePumpkin = new ItemStack(Material.PUMPKIN);
+  private final ItemStack scopePumpkin = new ItemStack(Material.CARVED_PUMPKIN);
 
   public ScopeEvents() {
     plugin = CheezJailRWGuns.getPlugin();
@@ -82,7 +82,7 @@ public class ScopeEvents implements Listener {
 
     if (isScoping) {
       scopingPlayers.add(player);
-      helmetPacket.getItemModifier().write(0, new ItemStack(Material.CARVED_PUMPKIN));
+      helmetPacket.getItemModifier().write(0, scopePumpkin);
     } else {
       scopingPlayers.remove(player);
       helmetPacket.getItemModifier().write(0, player.getInventory().getHelmet());
