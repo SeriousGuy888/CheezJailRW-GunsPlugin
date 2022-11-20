@@ -8,6 +8,7 @@ import io.github.seriousguy888.cheezjailrwguns.CheezJailRWGuns;
 import io.github.seriousguy888.cheezjailrwguns.customitems.CustomItemUtils;
 import io.github.seriousguy888.cheezjailrwguns.customitems.items.AbstractCustomItem;
 import io.github.seriousguy888.cheezjailrwguns.customitems.items.guns.AbstractGun;
+import io.github.seriousguy888.cheezjailrwguns.customitems.items.guns.interfaces.IScopedGun;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -75,7 +76,7 @@ public class ScopeEvents implements Listener {
     AbstractCustomItem heldCustomItem = CustomItemUtils.getCustomItem(heldItem);
     if (heldCustomItem == null) // If this is not a plugin managed custom item
       return;
-    if (!(heldCustomItem instanceof AbstractGun)) // If this is not a gun
+    if (!(heldCustomItem instanceof IScopedGun)) // If this is not a gun
       return;
 
     updateScoping(player, event.isSneaking());
