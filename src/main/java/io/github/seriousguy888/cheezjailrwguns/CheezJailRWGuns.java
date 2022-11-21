@@ -3,8 +3,8 @@ package io.github.seriousguy888.cheezjailrwguns;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 import io.github.seriousguy888.cheezjailrwguns.commands.GetGunsCommand;
-import io.github.seriousguy888.cheezjailrwguns.events.GunEvents;
-import io.github.seriousguy888.cheezjailrwguns.events.ScopeEvents;
+import io.github.seriousguy888.cheezjailrwguns.events.GunListener;
+import io.github.seriousguy888.cheezjailrwguns.events.ScopeListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class CheezJailRWGuns extends JavaPlugin {
@@ -36,7 +36,7 @@ public final class CheezJailRWGuns extends JavaPlugin {
   }
 
   private void registerEvents() {
-    new GunEvents(this);
-    new ScopeEvents(this);
+    new GunListener(this);
+    new ScopeListener(this);
   }
 }

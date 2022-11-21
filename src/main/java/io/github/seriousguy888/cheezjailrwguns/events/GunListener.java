@@ -22,11 +22,11 @@ import org.bukkit.util.Vector;
 
 import java.util.HashMap;
 
-public class GunEvents extends AbstractEventListener implements Listener {
+public class GunListener extends AbstractEventListener implements Listener {
   private final HashMap<Player, BukkitRunnable> reloadTasks;
   private final HashMap<Player, Long> lastFiredGun;
 
-  public GunEvents(CheezJailRWGuns plugin) {
+  public GunListener(CheezJailRWGuns plugin) {
     super(plugin);
     reloadTasks = new HashMap<>();
     lastFiredGun = new HashMap<>();
