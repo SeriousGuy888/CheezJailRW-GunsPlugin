@@ -3,7 +3,6 @@ package io.github.seriousguy888.cheezjailrwguns;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 import io.github.seriousguy888.cheezjailrwguns.commands.GetGunsCommand;
-import io.github.seriousguy888.cheezjailrwguns.events.AnvilEvents;
 import io.github.seriousguy888.cheezjailrwguns.events.GunEvents;
 import io.github.seriousguy888.cheezjailrwguns.events.ScopeEvents;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -41,6 +40,5 @@ public final class CheezJailRWGuns extends JavaPlugin {
 
     pm.registerEvents(new GunEvents(), this);
     pm.registerEvents(new ScopeEvents(), this);
-    pm.registerEvents(new AnvilEvents(), this);
   }
 }
