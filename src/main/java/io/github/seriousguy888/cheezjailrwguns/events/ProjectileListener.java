@@ -5,6 +5,8 @@ import io.github.seriousguy888.cheezjailrwguns.customitems.CustomItemUtil;
 import io.github.seriousguy888.cheezjailrwguns.customitems.items.AbstractCustomItem;
 import io.github.seriousguy888.cheezjailrwguns.customitems.items.projectiles.AbstractProjectile;
 import io.github.seriousguy888.cheezjailrwguns.customitems.items.projectiles.Flashbang;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
@@ -40,6 +42,13 @@ public class ProjectileListener extends AbstractEventListener {
       return;
 
     event.setCancelled(true);
+
+    if(!projType.canUseAgain(player)) {
+      player.spigot().sendMessage(ChatMessageType.ACTION_BAR,
+          TextComponent.fromLegacyText("Item on cooldown"));
+      return;
+    }
+
     if (projType instanceof Flashbang flashbang) {
       flashbang.consume(player);
       projectileMap.put(flashbang.launch(player), flashbang);

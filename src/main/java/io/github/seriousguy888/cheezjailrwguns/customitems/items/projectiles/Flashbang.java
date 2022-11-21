@@ -25,6 +25,11 @@ public class Flashbang extends AbstractProjectile {
   }
 
   @Override
+  protected int getCooldownTicks() {
+    return 20;
+  }
+
+  @Override
   public ItemStack getBaseItem() {
     return createItemStack(
         Material.OAK_SIGN,
