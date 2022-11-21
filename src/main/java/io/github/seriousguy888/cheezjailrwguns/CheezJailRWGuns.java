@@ -4,6 +4,7 @@ import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 import io.github.seriousguy888.cheezjailrwguns.commands.GetGunsCommand;
 import io.github.seriousguy888.cheezjailrwguns.events.GunListener;
+import io.github.seriousguy888.cheezjailrwguns.events.ProjectileListener;
 import io.github.seriousguy888.cheezjailrwguns.events.ScopeListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -38,5 +39,6 @@ public final class CheezJailRWGuns extends JavaPlugin {
   private void registerEvents() {
     new GunListener(this);
     new ScopeListener(this);
+    new ProjectileListener(this);
   }
 }
