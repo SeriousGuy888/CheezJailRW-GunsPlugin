@@ -8,6 +8,7 @@ import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.*;
 import org.bukkit.block.Block;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -114,6 +115,7 @@ public class GunListener extends AbstractEventListener {
       return;
     Block hitBlock = traceResult.getHitBlock();
     if (hitBlock != null) {
+      BlockData blockData = hitBlock.getBlockData();
       World world = hitBlock.getWorld();
       Location hitLoc = traceResult.getHitPosition().toLocation(world);
       world.spawnParticle(Particle.BLOCK_CRACK,
@@ -123,8 +125,11 @@ public class GunListener extends AbstractEventListener {
           0,
           0,
           1,
-          hitBlock.getBlockData(),
+          blockData,
           false);
+
+      Sound blockSound = blockData.getSoundGroup().getBreakSound();
+      world.playSound(hitLoc, blockSound, SoundCategory.BLOCKS, 1, 1);
     }
 
     if (!(traceResult.getHitEntity() instanceof LivingEntity hitEntity))
