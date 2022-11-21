@@ -18,7 +18,7 @@ public class CompactSmg extends AbstractGun {
   }
 
   @Override
-  protected ItemStack getItem() {
+  public ItemStack getBaseItem() {
     return createItemStack(
         Material.IRON_HOE,
         "&rCompact SMG",

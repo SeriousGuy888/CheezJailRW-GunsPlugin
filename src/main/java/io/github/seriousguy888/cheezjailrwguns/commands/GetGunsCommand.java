@@ -21,7 +21,7 @@ public class GetGunsCommand implements TabExecutor {
 
   public GetGunsCommand() {
     validItems = CustomItemManager.items.stream()
-        .map(e -> e.customItemId)
+        .map(AbstractCustomItem::getCustomItemId)
         .map(String::toLowerCase)
         .toList();
     Bukkit.getLogger().info(String.join(",", validItems));
@@ -50,7 +50,7 @@ public class GetGunsCommand implements TabExecutor {
 
     if (validItems.contains(itemName)) {
       AbstractCustomItem customItem = CustomItemUtil.getCustomItem(itemName);
-      ItemStack item = customItem.item;
+      ItemStack item = customItem.getItem();
       item.setAmount(amount);
 
       if(customItem instanceof AbstractGun gun) {

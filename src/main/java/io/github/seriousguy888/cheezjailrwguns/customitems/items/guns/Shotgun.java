@@ -25,7 +25,7 @@ public class Shotgun extends AbstractGun {
   }
 
   @Override
-  protected ItemStack getItem() {
+  public ItemStack getBaseItem() {
     return createItemStack(
         Material.WOODEN_HOE,
         "&rShotgun",

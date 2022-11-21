@@ -18,7 +18,7 @@ public class Pistol extends AbstractGun {
   }
 
   @Override
-  protected ItemStack getItem() {
+  public ItemStack getBaseItem() {
     return createItemStack(
         Material.CARROT_ON_A_STICK,
         "&rPistol",

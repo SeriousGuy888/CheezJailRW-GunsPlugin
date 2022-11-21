@@ -19,7 +19,7 @@ public class Sniper extends AbstractGun implements IScopedGun {
   }
 
   @Override
-  protected ItemStack getItem() {
+  public ItemStack getBaseItem() {
     return createItemStack(
         Material.GOLDEN_HOE,
         "&rSniper Rifle",

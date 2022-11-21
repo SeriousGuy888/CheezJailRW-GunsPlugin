@@ -11,7 +11,7 @@ public class Flashbang extends AbstractProjectile {
   }
 
   @Override
-  protected ItemStack getItem() {
+  public ItemStack getBaseItem() {
     return createItemStack(
         Material.EGG,
         "&rFlashbang",

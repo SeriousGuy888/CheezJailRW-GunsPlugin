@@ -11,7 +11,7 @@ public class HeavyAmmo extends AbstractAmmo {
   }
 
   @Override
-  protected ItemStack getItem() {
+  public ItemStack getBaseItem() {
     return createItemStack(
         Material.IRON_NUGGET,
         "&rHeavy Ammo",

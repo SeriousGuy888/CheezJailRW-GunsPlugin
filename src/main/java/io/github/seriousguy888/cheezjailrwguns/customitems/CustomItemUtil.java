@@ -40,7 +40,7 @@ public class CustomItemUtil {
   }
 
   public static AbstractCustomItem getCustomItem(String itemId) {
-    var results = CustomItemManager.items.stream().filter(e -> e.customItemId.equals(itemId));
+    var results = CustomItemManager.items.stream().filter(e -> e.getCustomItemId().equals(itemId));
     return results.findFirst().orElse(null);
   }
 

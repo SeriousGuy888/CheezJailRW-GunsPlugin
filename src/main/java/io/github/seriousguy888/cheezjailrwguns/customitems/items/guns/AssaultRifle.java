@@ -18,7 +18,7 @@ public class AssaultRifle extends AbstractGun {
   }
 
   @Override
-  protected ItemStack getItem() {
+  public ItemStack getBaseItem() {
     return createItemStack(
         Material.IRON_HOE,
         "&rAssault Rifle",
