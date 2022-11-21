@@ -36,9 +36,7 @@ public final class CheezJailRWGuns extends JavaPlugin {
   }
 
   private void registerEvents() {
-    var pm = getServer().getPluginManager();
-
-    pm.registerEvents(new GunEvents(), this);
-    pm.registerEvents(new ScopeEvents(), this);
+    new GunEvents(this);
+    new ScopeEvents(this);
   }
 }

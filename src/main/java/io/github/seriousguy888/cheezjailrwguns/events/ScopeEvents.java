@@ -27,9 +27,7 @@ import java.util.List;
 
 import static io.github.seriousguy888.cheezjailrwguns.utils.ScopeUtil.scopingPlayers;
 
-public class ScopeEvents implements Listener {
-  private final Plugin plugin;
-
+public class ScopeEvents extends AbstractEventListener implements Listener {
   private final ItemStack scopePumpkin = new ItemStack(Material.CARVED_PUMPKIN);
   private final PotionEffect snipingSlowness = new PotionEffect(PotionEffectType.SLOW,
       1000000,
@@ -39,8 +37,8 @@ public class ScopeEvents implements Listener {
       false);
 
 
-  public ScopeEvents() {
-    plugin = CheezJailRWGuns.getPlugin();
+  public ScopeEvents(CheezJailRWGuns plugin) {
+    super(plugin);
 
     ItemMeta pumpkinMeta = scopePumpkin.getItemMeta();
     if (pumpkinMeta != null) {
