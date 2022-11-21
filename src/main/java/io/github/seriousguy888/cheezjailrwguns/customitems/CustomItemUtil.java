@@ -5,12 +5,15 @@ import io.github.seriousguy888.cheezjailrwguns.customitems.items.AbstractCustomI
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Arrays;
+import java.util.UUID;
 
 public class CustomItemUtil {
   /**
@@ -64,6 +67,17 @@ public class CustomItemUtil {
 
     meta.setCustomModelData(customModelData);
     meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', name));
+
+
+    // Remove any attributes (eg: attack damage) from the item
+    AttributeModifier mod = new AttributeModifier(UUID.randomUUID(),
+        "",
+        0,
+        AttributeModifier.Operation.ADD_NUMBER);
+    // Setting attack damage to 0 is for some reason enough to remove all the modifiers ¯\_(ツ)_/¯
+    meta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, mod);
+
+    // Removing all the modifiers just makes all the headings empty, so make attributes invisible anyway
     meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 
     item.setItemMeta(meta);
