@@ -39,7 +39,7 @@ public class Flashbang extends AbstractProjectile {
 
   public Snowball launch(Player player) {
     Snowball snowball = player.launchProjectile(Snowball.class);
-    snowball.setItem(new ItemStack(Material.TNT));
+    snowball.setItem(this.getBaseItem());
 
     return snowball;
   }
