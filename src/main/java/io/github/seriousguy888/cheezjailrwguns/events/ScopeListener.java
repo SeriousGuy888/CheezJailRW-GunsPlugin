@@ -13,12 +13,10 @@ import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -27,7 +25,7 @@ import java.util.List;
 
 import static io.github.seriousguy888.cheezjailrwguns.utils.ScopeUtil.scopingPlayers;
 
-public class ScopeListener extends AbstractEventListener implements Listener {
+public class ScopeListener extends AbstractEventListener {
   private final ItemStack scopePumpkin = new ItemStack(Material.CARVED_PUMPKIN);
   private final PotionEffect snipingSlowness = new PotionEffect(PotionEffectType.SLOW,
       1000000,
@@ -94,7 +92,7 @@ public class ScopeListener extends AbstractEventListener implements Listener {
         .write(2, 5); // Slot (helmet)
 
     if (isScoping) {
-      if(player.getGameMode() == GameMode.SPECTATOR)
+      if (player.getGameMode() == GameMode.SPECTATOR)
         return;
 
       scopingPlayers.add(player);

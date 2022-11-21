@@ -10,7 +10,6 @@ import org.bukkit.*;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -22,7 +21,7 @@ import org.bukkit.util.Vector;
 
 import java.util.HashMap;
 
-public class GunListener extends AbstractEventListener implements Listener {
+public class GunListener extends AbstractEventListener {
   private final HashMap<Player, BukkitRunnable> reloadTasks;
   private final HashMap<Player, Long> lastFiredGun;
 
