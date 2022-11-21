@@ -7,6 +7,7 @@ import io.github.seriousguy888.cheezjailrwguns.customitems.items.guns.AbstractGu
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.*;
+import org.bukkit.block.Block;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -111,6 +112,21 @@ public class GunListener extends AbstractEventListener {
                                AbstractGun heldGunType) {
     if (traceResult == null)
       return;
+    Block hitBlock = traceResult.getHitBlock();
+    if (hitBlock != null) {
+      World world = hitBlock.getWorld();
+      Location hitLoc = traceResult.getHitPosition().toLocation(world);
+      world.spawnParticle(Particle.BLOCK_CRACK,
+          hitLoc,
+          10,
+          0,
+          0,
+          0,
+          1,
+          hitBlock.getBlockData(),
+          false);
+    }
+
     if (!(traceResult.getHitEntity() instanceof LivingEntity hitEntity))
       return;
 
