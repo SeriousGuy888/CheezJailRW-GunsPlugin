@@ -118,7 +118,7 @@ public class GunListener extends AbstractEventListener {
 
     boolean isHeadshot = detectHeadshot(hitEntity, traceResult);
     if (isHeadshot) {
-      dmg *= 1.25;
+      dmg *= 1.5;
       player.spigot().sendMessage(ChatMessageType.ACTION_BAR,
           TextComponent.fromLegacyText("Headshot"));
     }
