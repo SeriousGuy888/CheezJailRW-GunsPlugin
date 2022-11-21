@@ -3,6 +3,7 @@ package io.github.seriousguy888.cheezjailrwguns.customitems.items.guns;
 import io.github.seriousguy888.cheezjailrwguns.customitems.CustomItemManager;
 import io.github.seriousguy888.cheezjailrwguns.customitems.items.guns.interfaces.IScopedGun;
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 
 import static io.github.seriousguy888.cheezjailrwguns.customitems.CustomItemUtil.createItemStack;
 
@@ -18,8 +19,8 @@ public class Dmr extends AbstractGun implements IScopedGun {
   }
 
   @Override
-  protected void setItem() {
-    item = createItemStack(
+  protected ItemStack getItem() {
+    return createItemStack(
         Material.IRON_HOE,
         "&rDMR",
         6600901);

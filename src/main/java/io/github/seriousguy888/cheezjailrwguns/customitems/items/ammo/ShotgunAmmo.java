@@ -1,6 +1,7 @@
 package io.github.seriousguy888.cheezjailrwguns.customitems.items.ammo;
 
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 
 import static io.github.seriousguy888.cheezjailrwguns.customitems.CustomItemUtil.createItemStack;
 
@@ -10,8 +11,8 @@ public class ShotgunAmmo extends AbstractAmmo {
   }
 
   @Override
-  protected void setItem() {
-    item = createItemStack(
+  protected ItemStack getItem() {
+    return createItemStack(
         Material.IRON_NUGGET,
         "&rShotgun Ammo",
         6600304);

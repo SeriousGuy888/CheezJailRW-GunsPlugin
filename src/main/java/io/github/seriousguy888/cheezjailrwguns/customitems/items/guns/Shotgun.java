@@ -4,6 +4,7 @@ import io.github.seriousguy888.cheezjailrwguns.customitems.CustomItemManager;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.RayTraceResult;
 import org.bukkit.util.Vector;
 
@@ -24,8 +25,8 @@ public class Shotgun extends AbstractGun {
   }
 
   @Override
-  protected void setItem() {
-    item = createItemStack(
+  protected ItemStack getItem() {
+    return createItemStack(
         Material.WOODEN_HOE,
         "&rShotgun",
         6600701);

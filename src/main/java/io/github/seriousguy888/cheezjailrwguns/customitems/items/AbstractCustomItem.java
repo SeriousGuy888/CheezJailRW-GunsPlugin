@@ -11,13 +11,13 @@ public abstract class AbstractCustomItem {
   public AbstractCustomItem(String customItemId) {
     this.customItemId = customItemId;
 
-    setItem();
+    item = getItem();
     PersistentDataUtil.setString(item,
         CustomItemProperty.CUSTOM_ITEM_ID,
         customItemId);
   }
 
-  protected abstract void setItem();
+  protected abstract ItemStack getItem();
 
   public boolean is(ItemStack compareItem) {
     if (compareItem == null)

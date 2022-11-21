@@ -2,6 +2,7 @@ package io.github.seriousguy888.cheezjailrwguns.customitems.items.guns;
 
 import io.github.seriousguy888.cheezjailrwguns.customitems.CustomItemManager;
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 
 import static io.github.seriousguy888.cheezjailrwguns.customitems.CustomItemUtil.createItemStack;
 
@@ -17,8 +18,8 @@ public class Pistol extends AbstractGun {
   }
 
   @Override
-  protected void setItem() {
-    item = createItemStack(
+  protected ItemStack getItem() {
+    return createItemStack(
         Material.CARROT_ON_A_STICK,
         "&rPistol",
         6600201);
