@@ -37,13 +37,15 @@ public class Flashbang extends AbstractProjectile {
         6600110);
   }
 
-  public Snowball launch(Player player) {
+  @Override
+  public Projectile launch(Player player) {
     Snowball snowball = player.launchProjectile(Snowball.class);
     snowball.setItem(this.getBaseItem());
 
     return snowball;
   }
 
+  @Override
   public void hit(ProjectileHitEvent event) {
     Projectile projectile = event.getEntity();
     Location loc = projectile.getLocation();

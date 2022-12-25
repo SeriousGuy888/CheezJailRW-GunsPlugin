@@ -7,6 +7,7 @@ import io.github.seriousguy888.cheezjailrwguns.customitems.items.ammo.ShotgunAmm
 import io.github.seriousguy888.cheezjailrwguns.customitems.items.ammo.SmallAmmo;
 import io.github.seriousguy888.cheezjailrwguns.customitems.items.guns.*;
 import io.github.seriousguy888.cheezjailrwguns.customitems.items.projectiles.Flashbang;
+import io.github.seriousguy888.cheezjailrwguns.customitems.items.projectiles.Molotov;
 
 import java.util.ArrayList;
 
@@ -25,6 +26,7 @@ public class CustomItemManager {
   public final static Dmr DMR = new Dmr("dmr");
 
   public final static Flashbang FLASHBANG = new Flashbang("flashbang");
+  public final static Molotov MOLOTOV = new Molotov("molotov");
 
 
   public final static ArrayList<AbstractCustomItem> items = new ArrayList<>() {{
@@ -40,5 +42,6 @@ public class CustomItemManager {
     add(SNIPER);
     add(DMR);
     add(FLASHBANG);
+    add(MOLOTOV);
   }};
 }

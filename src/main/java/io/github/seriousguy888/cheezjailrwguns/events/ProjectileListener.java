@@ -4,7 +4,6 @@ import io.github.seriousguy888.cheezjailrwguns.CheezJailRWGuns;
 import io.github.seriousguy888.cheezjailrwguns.customitems.CustomItemUtil;
 import io.github.seriousguy888.cheezjailrwguns.customitems.items.AbstractCustomItem;
 import io.github.seriousguy888.cheezjailrwguns.customitems.items.projectiles.AbstractProjectile;
-import io.github.seriousguy888.cheezjailrwguns.customitems.items.projectiles.Flashbang;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.entity.Player;
@@ -43,16 +42,14 @@ public class ProjectileListener extends AbstractEventListener {
 
     event.setCancelled(true);
 
-    if(!projType.canUseAgain(player)) {
+    if (!projType.canUseAgain(player)) {
       player.spigot().sendMessage(ChatMessageType.ACTION_BAR,
           TextComponent.fromLegacyText("Item on cooldown"));
       return;
     }
 
-    if (projType instanceof Flashbang flashbang) {
-      flashbang.consume(player);
-      projectileMap.put(flashbang.launch(player), flashbang);
-    }
+    projType.consume(player);
+    projectileMap.put(projType.launch(player), projType);
   }
 
   @EventHandler
@@ -62,8 +59,6 @@ public class ProjectileListener extends AbstractEventListener {
       return;
 
     AbstractProjectile custProjectile = projectileMap.get(projectile);
-    if (custProjectile instanceof Flashbang flashbang) {
-      flashbang.hit(event);
-    }
+    custProjectile.hit(event);
   }
 }

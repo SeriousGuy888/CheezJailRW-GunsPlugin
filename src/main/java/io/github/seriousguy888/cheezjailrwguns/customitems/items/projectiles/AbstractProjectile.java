@@ -3,6 +3,8 @@ package io.github.seriousguy888.cheezjailrwguns.customitems.items.projectiles;
 import io.github.seriousguy888.cheezjailrwguns.customitems.items.AbstractCustomItem;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
+import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
@@ -43,4 +45,8 @@ public abstract class AbstractProjectile extends AbstractCustomItem {
 
   // How many ticks the cooldown for this projectile item is
   protected abstract int getCooldownTicks();
+
+  public abstract Projectile launch(Player player);
+
+  public abstract void hit(ProjectileHitEvent event);
 }
