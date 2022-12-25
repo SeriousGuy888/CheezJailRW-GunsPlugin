@@ -1,14 +1,11 @@
 package io.github.seriousguy888.cheezjailrwguns.customitems.items.projectiles;
 
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Particle;
-import org.bukkit.World;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Projectile;
-import org.bukkit.entity.Snowball;
+import org.bukkit.*;
+import org.bukkit.entity.*;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.List;
 
 import static io.github.seriousguy888.cheezjailrwguns.customitems.CustomItemUtil.createItemStack;
 
@@ -42,9 +39,24 @@ public class Molotov extends AbstractProjectile {
     Projectile projectile = event.getEntity();
     Location loc = projectile.getLocation();
     World world = projectile.getWorld();
-    float radius = 5f;
+    float radius = 3f;
 
-    world.spawnParticle(Particle.EXPLOSION_HUGE, loc, 10);
+    world.spawnParticle(Particle.FLAME, loc, 50, 1, 1, 1);
+
+
+    List<LivingEntity> nearbyEntities = projectile
+        .getNearbyEntities(radius, radius, radius)
+        .stream()
+        .filter(e -> e instanceof LivingEntity)
+        .map(e -> (LivingEntity) e).toList();
+
+
+    nearbyEntities.forEach(e -> {
+      e.setFireTicks(5 * 20);
+      e.damage(0.5, (Entity) projectile.getShooter());
+    });
+
+    world.playSound(loc, Sound.ENTITY_SPLASH_POTION_BREAK, SoundCategory.PLAYERS, 1, 1);
   }
 }
 
