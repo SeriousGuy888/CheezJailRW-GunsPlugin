@@ -24,7 +24,7 @@ public class Grenade extends AbstractProjectile {
 
   @Override
   protected int getCooldownTicks() {
-    return 30;
+    return 60;
   }
 
   @Override
