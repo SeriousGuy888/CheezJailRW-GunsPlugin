@@ -1,13 +1,13 @@
 package io.github.seriousguy888.cheezjailrwguns.customentities;
 
 import io.github.seriousguy888.cheezjailrwguns.CheezJailRWGuns;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+
+import java.text.DecimalFormat;
 
 public class PrimedGrenade {
   private int fuseTimeTicks;
@@ -19,8 +19,6 @@ public class PrimedGrenade {
   }
 
   public Entity spawn(Location location, Player owner) {
-    var entityManager = CheezJailRWGuns.getEntityManager();
-
     World world = location.getWorld();
     if (world == null) {
       return null;
@@ -44,11 +42,19 @@ public class PrimedGrenade {
 
   public void tick() {
     updateFuseTimer();
+
+    if (fuseTimeTicks < 10 || (fuseTimeTicks % 4 == 0)) {
+      playTickingSound();
+    }
   }
 
   public void die() {
     CheezJailRWGuns.getEntityManager().remove(entity);
     entity.remove();
+  }
+
+  private void playTickingSound() {
+    entity.getWorld().playSound(entity.getLocation(), Sound.BLOCK_TRIPWIRE_CLICK_ON, 0.6f, 1.0f);
   }
 
   private void updateFuseTimer() {
@@ -60,7 +66,9 @@ public class PrimedGrenade {
     }
 
     float secondsRemaining = (float) fuseTimeTicks / 20;
-    entity.setCustomName(Float.toString(secondsRemaining) + "s");
+    var secStr = new DecimalFormat("#.#").format(secondsRemaining);
+    var name = ChatColor.translateAlternateColorCodes('&', "&c" + secStr + "s");
+    entity.setCustomName(name);
     fuseTimeTicks -= 1;
   }
 }
