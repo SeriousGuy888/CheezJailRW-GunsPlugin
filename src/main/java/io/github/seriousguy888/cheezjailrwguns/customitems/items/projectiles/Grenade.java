@@ -1,11 +1,14 @@
 package io.github.seriousguy888.cheezjailrwguns.customitems.items.projectiles;
 
-import org.bukkit.*;
-import org.bukkit.entity.*;
+import io.github.seriousguy888.cheezjailrwguns.CheezJailRWGuns;
+import io.github.seriousguy888.cheezjailrwguns.customentities.PrimedGrenade;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
+import org.bukkit.entity.Snowball;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.inventory.ItemStack;
-
-import java.util.List;
 
 import static io.github.seriousguy888.cheezjailrwguns.customitems.CustomItemUtil.createItemStack;
 
@@ -27,10 +30,10 @@ public class Grenade extends AbstractProjectile {
   @Override
   public Projectile launch(Player player) {
     Snowball snowball = player.launchProjectile(Snowball.class);
-    ItemStack snowballTexture = createItemStack(Material.BIRCH_SIGN, "a", 6601102);
-    if (snowballTexture != null)
+    ItemStack snowballTexture = getBaseItem();
+    if (snowballTexture != null) {
       snowball.setItem(snowballTexture);
-
+    }
     return snowball;
   }
 
@@ -38,9 +41,8 @@ public class Grenade extends AbstractProjectile {
   public void hit(ProjectileHitEvent event) {
     Projectile projectile = event.getEntity();
     Location loc = projectile.getLocation();
-    World world = projectile.getWorld();
 
-    world.createExplosion(loc, 2f, false, false, (Entity) projectile.getShooter());
+    CheezJailRWGuns.getEntityManager().spawn(PrimedGrenade.class, loc, (Player) projectile.getShooter());
   }
 }
 
